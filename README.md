@@ -1,7 +1,7 @@
 docker_engine
 =============
 
-docker_engine is an [Ansible](http://www.ansible.com) role to setup docker engine
+This is an [Ansible](http://www.ansible.com) role to setup docker engine.
 
 Requirements
 ------------
@@ -53,7 +53,7 @@ Testing
 -------
 
 ```shell
-$ cd docker_engine
+$ cd docker_engine/test
 $ ansible-playbook main.yml
 ```
 
