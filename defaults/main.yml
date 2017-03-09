@@ -1,0 +1,15 @@
+---
+# Role default lower priority variables
+
+# This variables are undefined by default. In this case role will use OS
+# specific variables defined in the <distribution>.yml files within this
+# directory if exist or, alternatively, the default.yml vars.
+
+# List of packages to install docker
+#
+# docker_engine_packages:
+
+# List of user to add to docker group. This is usefull to allow concrete users
+# to manage focker without being root
+
+# docker_engine_users:

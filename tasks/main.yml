@@ -1,0 +1,7 @@
+---
+# Role tasks
+
+- include: os_vars.yml
+- include: install.yml
+- include: configure.yml
+- include: service.yml

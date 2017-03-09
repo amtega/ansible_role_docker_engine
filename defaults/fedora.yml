@@ -1,0 +1,6 @@
+---
+# Fedora specific variables
+
+docker_engine_default_packages:
+- docker
+- python-docker-py

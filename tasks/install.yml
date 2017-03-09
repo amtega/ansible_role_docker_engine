@@ -1,0 +1,13 @@
+---
+# Tasks to install docker engine
+
+- name: install docker packages
+  package:
+    name: "{{ item }}"
+    state: present
+  with_items: >
+    {{ docker_engine_packages | default(docker_engine_default_packages) }}
+  tags:
+    - role::docker_engine
+    - role::docker_engine::packages
+    - role::docker_engine::install
