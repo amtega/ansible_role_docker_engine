@@ -1,0 +1,19 @@
+{{ ansible_managed | comment }}
+
+# Docker storage configuration
+# See /usr/lib/docker-storage-setup/docker-storage-setup for details
+
+STORAGE_DRIVER="{{ docker_engine_storage_driver }}"
+EXTRA_DOCKER_STORAGE_OPTIONS="{{ docker_engine_storage_options }}"
+DEVS="{{ docker_engine_storage_devs | join(' ') }}"
+VG="{{ docker_engine_storage_vg }}"
+ROOT_SIZE="{{ docker_engine_storage_root_size }}"
+DATA_SIZE="{{ docker_engine_storage_data_size }}"
+MIN_DATA_SIZE="{{ docker_engine_storage_min_data_size }}"
+CHUNK_SIZE="{{ docker_engine_storage_chunk_size }}"
+GROWPART="{{ docker_engine_storage_growpart }}"
+AUTO_EXTEND_POOL="{{ docker_engine_storage_auto_exetend_pool }}"
+POOL_AUTOEXTEND_THRESHOLD="{{ docker_engine_storage_autoextend_threshold }}"
+POOL_AUTOEXTEND_PERCENT="{{ docker_engine_storage_autoextend_percent }}"
+DEVICE_WAIT_TIMEOUT="{{ docker_engine_storage_device_wait_timeout }}"
+WIPE_SIGNATURES="{{ docker_engine_storage_wipe_signatures }}"

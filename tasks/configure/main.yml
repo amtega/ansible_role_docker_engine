@@ -1,5 +1,5 @@
 ---
-# Tasks to configure docker engine
+# Configuration tasks for all operating systems
 
 - block:
 
@@ -16,7 +16,16 @@
       state: present
       name: '{{ item }}'
     with_items: >
-      {{ docker_engine_users | default(docker_engine_default_users) }}
+      {{ docker_engine_users | default([]) }}
+
+  - name: "configure docker storage"
+    template:
+      src: docker_storage.template.j2
+      dest: "/etc/sysconfig/docker-storage"
+      owner: root
+      group: root
+      mode: 0644
+      backup: no
 
   tags:
     - role::docker_engine

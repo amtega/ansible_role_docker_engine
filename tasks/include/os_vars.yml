@@ -1,0 +1,13 @@
+---
+# Tasks to include os specific vars
+
+- name: include specific operating system variables
+  include_vars: '{{ item }}'
+  with_first_found:
+   - files:
+       - "{{ ansible_distribution | lower }}.yml"
+     paths:
+       - "{{ role_path }}/defaults"
+     skip: true
+  tags:
+    - role::docker_engine

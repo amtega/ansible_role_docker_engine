@@ -1,6 +1,0 @@
----
-# Default variables
-
-docker_engine_default_packages:
-- docker-engine
-- python-docker-py
