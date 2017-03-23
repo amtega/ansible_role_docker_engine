@@ -21,7 +21,7 @@
   - name: "configure docker storage"
     template:
       src: docker_storage.template.j2
-      dest: "/etc/sysconfig/docker-storage"
+      dest: "/etc/sysconfig/docker-storage-setup"
       owner: root
       group: root
       mode: 0644

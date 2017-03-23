@@ -1,4 +1,6 @@
 ---
 # Role variables
 
-docker_engine_default_packages: []
+docker_engine_packages:
+- docker
+- python-docker-py

@@ -1,14 +1,11 @@
 ---
 # Role tasks
 
-- name: include specific operating system variables
-  include: include/os_vars.yml
 
-- name: run folder with specific operating system tasks
-  include: include/os_tasks.yml
-  with_items:
-    - install
-    - configure
-    - service
-  loop_control:
-    loop_var: folder
+- include: tools/os_vars.yml
+
+- include: tools/os_tasks.yml folder=install
+
+- include: tools/os_tasks.yml folder=configure
+
+- include: tools/os_tasks.yml folder=service

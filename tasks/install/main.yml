@@ -1,29 +1,12 @@
 ---
 # Install tasks for all operating systems
 
-- block:
-
-  - name: check if docker is installed
-    stat:
-      path: /usr/bin/docker
-    changed_when: false
-    register: search_docker_result
-
-  - name: check if python docker-py module is installed
-    shell: "pip show docker-py | grep '^Version:' | cut -d ' ' -f 2"
-    changed_when: false
-    register: search_docker_py_result
-
-  - name: install docker packages
-    package:
-      name: "{{ item }}"
-      state: present
-    with_items: >
-      {{ docker_engine_packages | default([]) }}
-    when:
-      not search_docker_result.stat.exists
-      or search_docker_py_result.stdout | length == 0
-
+- name: install docker packages
+  package:
+    name: "{{ item }}"
+    state: present
+  with_items: >
+    {{ docker_engine_packages | default([]) }}
   tags:
     - role::docker_engine
     - role::docker_engine::packages

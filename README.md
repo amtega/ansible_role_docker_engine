@@ -1,18 +1,14 @@
-docker_engine
-=============
+# docker_engine
 
 This is an [Ansible](http://www.ansible.com) role to setup docker engine.
 
-Requirements
-------------
+## Requirements
 
 - Ansible >= 2.0
 
-Role Variables
---------------
+## Role Variables
 
-Here is a list of all the default variables for this role, which are also
-available in `defaults/main.yml`.
+Here is a list of all the default variables for this role, which are also available in `defaults/main.yml`.
 
 ```yaml
 ---
@@ -37,16 +33,14 @@ available in `defaults/main.yml`.
   docker_engine_storage_autoextend_threshold: 60
   docker_engine_storage_autoextend_percent: 20
   docker_engine_storage_device_wait_timeout: 60
-  docker_engine_storage_wipe_signatures: false  
+  docker_engine_storage_wipe_signatures: false
 ```
 
-Dependencies
-------------
+## Dependencies
 
 None.
 
-Example Playbook
-----------------
+## Example Playbook
 
 This is an example playbook:
 
@@ -55,23 +49,20 @@ This is an example playbook:
 
 - hosts: all
   roles:
-    - docker_engine  
+    - docker_engine
 ```
 
-Testing
--------
+## Testing
 
 ```shell
 $ cd docker_engine/test
 $ ansible-playbook main.yml
 ```
 
-License
--------
+## License
 
 Not defined.
 
-Author Information
-------------------
+## Author Information
 
-- Juan Antonio Valiño García (<juanval@edu.xunta.es>). Amtega - Xunta de Galicia
+- Juan Antonio Valiño García ([juanval@edu.xunta.es](mailto:juanval@edu.xunta.es)). Amtega - Xunta de Galicia

@@ -20,6 +20,12 @@
       state: started
     when: docker_engine_storage_driver | length != 0
 
+  - name: stop docker storage setup service
+    service:
+      name: docker-storage-setup
+      state: stopped
+    when: docker_engine_storage_driver | length == 0
+
   tags:
     - role::docker_engine
     - role::docker_engine::service
