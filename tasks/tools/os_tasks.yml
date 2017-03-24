@@ -1,7 +1,10 @@
 ---
 # Run os specific tasks within a folder
 
-- name: run tasks applicable to all operating systems
+- name: load variables
+  include: "{{ role_path }}/tasks/tools/os_vars.yml"
+
+- name: launch tasks applicable to all operating systems
   include: "{{ role_path }}/tasks/{{ folder }}/main.yml"
 
 - name: search specific operating system tasks
@@ -9,10 +12,8 @@
     paths: "{{ role_path }}/tasks/{{ folder }}"
     patterns: "*{{ ansible_distribution | lower }}*.yml"
   register: search_folder_tasks_result
-  tags:
-    - always
 
-- name: run specific operating system tasks
+- name: launch specific operating system tasks
   include: "{{ file.path }}"
   with_items: "{{ search_folder_tasks_result.files | sort(attribute='path') }}"
   loop_control:

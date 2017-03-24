@@ -14,3 +14,7 @@
 
 - Added support for ansible Check Mode ("Dry Run").
 - Improved os specific hooks calls.
+
+## 2017-03-24
+
+- Improved tag structure

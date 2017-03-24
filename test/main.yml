@@ -1,7 +1,7 @@
 ---
 # Tasks for tesing role
 
-- name: test the role
+- name: test docker_engine the role
   hosts: localhost
   roles:
     - docker_engine
