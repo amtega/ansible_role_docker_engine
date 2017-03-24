@@ -17,4 +17,5 @@
 
 ## 2017-03-24
 
-- Improved tag structure
+- Improved tag structure.
+- Improved tests.
