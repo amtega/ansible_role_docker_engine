@@ -3,7 +3,9 @@
 
 - name: test docker_engine the role
   hosts: localhost
+
   tasks:
+
     - name: cleanup log file
       copy:
         content: ""
