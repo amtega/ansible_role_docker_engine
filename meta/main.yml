@@ -3,7 +3,7 @@
 
 galaxy_info:
   author: Juan Antonio Valiño García
-  description: Computer Science Engineer
+  description: Setup docker engine
   company: Amtega - Xunta de Galicia
   license: license not defined
   min_ansible_version: 2.2
