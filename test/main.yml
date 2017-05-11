@@ -3,14 +3,6 @@
 
 - name: test docker_engine the role
   hosts: localhost
-
   tasks:
-
-    - name: cleanup log file
-      copy:
-        content: ""
-        dest: ./test.log
-        force: no
-
     - include_role:
         name: docker_engine
