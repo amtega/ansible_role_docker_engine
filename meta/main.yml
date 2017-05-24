@@ -1,6 +1,4 @@
 ---
-# Role dependencies
-
 galaxy_info:
   author: Juan Antonio Valiño García
   description: Setup docker engine
