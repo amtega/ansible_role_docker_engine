@@ -19,3 +19,7 @@
 
 - Improved tag structure.
 - Improved tests.
+
+## 2017-06-01.
+
+- Improved documentation in README.md file.
