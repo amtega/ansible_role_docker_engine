@@ -1,6 +1,10 @@
 ---
 # Role tasks
 
+- name: load variables
+  include: tools/os_vars.yml
+  static: false
+
 - name: launch install tasks
   include: tools/os_tasks.yml folder=install
   static: false

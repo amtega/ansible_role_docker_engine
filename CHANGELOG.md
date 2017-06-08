@@ -20,6 +20,15 @@
 - Improved tag structure.
 - Improved tests.
 
-## 2017-06-01.
+## 2017-06-01
 
+- Improved documentation in README.md file.
+
+## 2017-06-05
+
+- Improved documentation in README.md file.
+
+## 2017-06-07
+
+- Improved include structure.
 - Improved documentation in README.md file.

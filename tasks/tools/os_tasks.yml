@@ -1,9 +1,6 @@
 ---
 # Run os specific tasks within a folder
 
-- name: load variables
-  include: "{{ role_path }}/tasks/tools/os_vars.yml"
-
 - name: launch tasks applicable to all operating systems
   include: "{{ role_path }}/tasks/{{ folder }}/main.yml"
 
