@@ -32,3 +32,7 @@
 
 - Improved include structure.
 - Improved documentation in README.md file.
+
+## 2017-06-15
+
+- Simplified role structure.

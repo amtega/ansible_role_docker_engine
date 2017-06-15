@@ -1,26 +1,22 @@
 ---
 # Role tasks
 
-- name: load variables
-  include: tools/os_vars.yml
-  static: false
-
-- name: launch install tasks
-  include: tools/os_tasks.yml folder=install
+- name: install docker engine
+  include: install.yml
   static: false
   tags:
     - role::docker_engine
     - role::docker_engine::install
 
-- name: launch configure tasks
-  include: tools/os_tasks.yml folder=configure
+- name: configure docker engine
+  include: configure.yml
   static: false
   tags:
     - role::docker_engine
     - role::docker_engine::configure
 
-- name: launch configure tasks
-  include: tools/os_tasks.yml folder=service
+- name: setup docker engine service
+  include: service.yml
   static: false
   tags:
     - role::docker_engine
