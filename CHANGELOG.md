@@ -36,3 +36,7 @@
 ## 2017-06-15
 
 - Simplified role structure.
+
+## 2017-06-26
+
+- Minor cosmetic changes.

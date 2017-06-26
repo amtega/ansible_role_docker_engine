@@ -5,8 +5,7 @@
   package:
     name: "{{ item }}"
     state: present
-  with_items: >
-    {{ docker_engine_packages | default([]) }}
+  with_items: "{{ docker_engine_packages | default([]) }}"
   tags:
     - role::docker_engine
     - role::docker_engine::packages
