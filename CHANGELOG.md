@@ -40,3 +40,8 @@
 ## 2017-06-26
 
 - Minor cosmetic changes.
+
+## 2017-09-29
+
+- Refactored include directives by include_tasks / import_tasks.
+- Updated documentation.

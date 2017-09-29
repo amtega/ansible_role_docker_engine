@@ -2,22 +2,19 @@
 # Role tasks
 
 - name: install docker engine
-  include: install.yml
-  static: false
+  include_tasks: install.yml
   tags:
     - role::docker_engine
     - role::docker_engine::install
 
 - name: configure docker engine
-  include: configure.yml
-  static: false
+  include_tasks: configure.yml
   tags:
     - role::docker_engine
     - role::docker_engine::configure
 
 - name: setup docker engine service
-  include: service.yml
-  static: false
+  include_tasks: service.yml
   tags:
     - role::docker_engine
     - role::docker_engine::service
