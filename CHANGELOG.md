@@ -45,3 +45,7 @@
 
 - Refactored include directives by include_tasks / import_tasks.
 - Updated documentation.
+
+## 2017-10-07
+
+- Fixed package list required to install docker.

@@ -4,3 +4,4 @@
 docker_engine_packages:
 - docker
 - python-docker-py
+- libselinux-python
