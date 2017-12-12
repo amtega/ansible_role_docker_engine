@@ -51,4 +51,4 @@ GNU General Public License for more details or European Union Public License for
 
 ## Author Information
 
-- Juan Antonio Valiño García ([juanval@edu.xunta.es](mailto:juanval@edu.xunta.es))
+- Juan Antonio Valiño García
