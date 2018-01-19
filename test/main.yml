@@ -5,4 +5,4 @@
   hosts: localhost
   tasks:
     - include_role:
-        name: docker_engine
+        name: amtega.docker_engine

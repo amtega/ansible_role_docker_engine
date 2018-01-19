@@ -2,29 +2,32 @@
 # Service tasks
 
 - block:
-
   - name: enable and start docker service
     service:
       name: docker
       enabled: yes
       state: started
 
-  - name: enable docker storage setup service
-    service:
-      name: docker-storage-setup
-      enabled: yes
+  - block:
+      - name: enable docker storage setup service
+        service:
+          name: docker-storage-setup
+          enabled: yes
 
-  - name: start docker storage setup service
-    service:
-      name: docker-storage-setup
-      state: started
-    when: docker_engine_storage_driver | length != 0
+      - name: start docker storage setup service
+        service:
+          name: docker-storage-setup
+          state: started
+        when: docker_engine_storage_driver | length != 0
 
-  - name: stop docker storage setup service
-    service:
-      name: docker-storage-setup
-      state: stopped
-    when: docker_engine_storage_driver | length == 0
+      - name: stop docker storage setup service
+        service:
+          name: docker-storage-setup
+          state: stopped
+        when: docker_engine_storage_driver | length == 0
+    when:
+        - ansible_distribution in ["RedHat", "CentOS"]
+        - ansible_distribution_version | version_compare('7', '>=')
 
   tags:
     - role::docker_engine

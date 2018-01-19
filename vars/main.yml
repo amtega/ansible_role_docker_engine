@@ -2,6 +2,6 @@
 # Role variables
 
 docker_engine_packages:
-- docker
-- python-docker-py
-- libselinux-python
+  - docker-io
+  - python-docker-py
+  - libselinux-python
