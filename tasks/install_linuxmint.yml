@@ -1,0 +1,8 @@
+---
+# Install tasks for LinuxMint
+
+- include_tasks: "{{ role_path }}/tasks/install_debian.yml"
+  tags:
+    - role::docker_engine
+    - role::docker_engine::packages
+    - role::docker_engine::install

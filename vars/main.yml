@@ -1,7 +1,7 @@
 ---
 # Role variables
 
-# Packages to remove
+# Packages to remove before install
 
 obsolete_docker_engine_packages:
   redhat: []

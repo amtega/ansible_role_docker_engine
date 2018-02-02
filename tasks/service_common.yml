@@ -1,0 +1,11 @@
+---
+# Service tasks commont to all distros
+
+- name: enable and start docker service
+  service:
+    name: docker
+    enabled: yes
+    state: started
+  tags:
+    - role::docker_engine
+    - role::docker_engine::service

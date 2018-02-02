@@ -2,33 +2,10 @@
 # Configuration tasks
 
 - block:
+    - include_tasks: >-
+        {{ role_path }}/tasks/configure_{{ ansible_os_family | lower }}.yml
 
-  - name: ensure "docker" group is present
-    group:
-      name: docker
-      state: present
-      system: yes
-
-  - name: add users into "docker" group
-    user:
-      append: yes
-      groups: docker
-      state: present
-      name: '{{ item }}'
-    with_items: "{{ docker_engine_users | default([]) }}"
-
-  - name: "configure docker storage"
-    template:
-      src: docker_storage.j2
-      dest: "/etc/sysconfig/docker-storage-setup"
-      owner: root
-      group: root
-      mode: 0644
-      backup: no
-    when:
-        - ansible_distribution in ["RedHat", "CentOS"]
-        - ansible_distribution_version | version_compare('7', '>=')
-
+    - include_tasks: "{{ role_path }}/tasks/configure_common.yml"
   tags:
     - role::docker_engine
     - role::docker_engine::configure

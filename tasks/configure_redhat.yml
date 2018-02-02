@@ -1,0 +1,15 @@
+---
+# Configuration tasks for Red Hat
+
+- name: configure docker storage
+  template:
+    src: docker_storage.j2
+    dest: "/etc/sysconfig/docker-storage-setup"
+    owner: root
+    group: root
+    mode: 0644
+    backup: no
+  when: ansible_distribution_version | version_compare('7', '>=')
+  tags:
+    - role::docker_engine
+    - role::docker_engine::configure
