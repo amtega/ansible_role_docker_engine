@@ -2,19 +2,19 @@
 # Role tasks
 
 - name: install docker engine
-  include_tasks: install.yml
+  include_tasks: install/main.yml
   tags:
     - role::docker_engine
     - role::docker_engine::install
 
 - name: configure docker engine
-  include_tasks: configure.yml
+  include_tasks: configure/main.yml
   tags:
     - role::docker_engine
     - role::docker_engine::configure
 
 - name: setup docker engine service
-  include_tasks: service.yml
+  include_tasks: service/main.yml
   tags:
     - role::docker_engine
     - role::docker_engine::service
