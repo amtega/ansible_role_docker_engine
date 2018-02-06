@@ -11,11 +11,6 @@ obsolete_docker_engine_packages:
     - docker-engine
     - docker.io
 
-  linuxmint:
-    - docker
-    - docker-engine
-    - docker.io
-
 # Packages to install
 
 docker_engine_packages:
@@ -25,11 +20,6 @@ docker_engine_packages:
     - libselinux-python
 
   debian:
-    - apt-transport-https
-    - docker-ce
-    - python-docker
-
-  linuxmint:
     - apt-transport-https
     - docker-ce
     - python-docker
