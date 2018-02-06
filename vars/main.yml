@@ -1,7 +1,7 @@
 ---
 # Role variables
 
-# Packages to remove
+# Packages to remove before install
 
 obsolete_docker_engine_packages:
   redhat: []
@@ -16,8 +16,10 @@ obsolete_docker_engine_packages:
 docker_engine_packages:
   redhat:
     - docker-io
-    - python-docker-py
+    - python-docker
     - libselinux-python
+
   debian:
     - apt-transport-https
     - docker-ce
+    - python-docker

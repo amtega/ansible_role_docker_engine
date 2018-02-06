@@ -1,5 +1,5 @@
 ---
-# Configuration tasks
+# Configuration tasks common to all distros
 
 - block:
 
@@ -16,18 +16,6 @@
       state: present
       name: '{{ item }}'
     with_items: "{{ docker_engine_users | default([]) }}"
-
-  - name: "configure docker storage"
-    template:
-      src: docker_storage.j2
-      dest: "/etc/sysconfig/docker-storage-setup"
-      owner: root
-      group: root
-      mode: 0644
-      backup: no
-    when:
-        - ansible_distribution in ["RedHat", "CentOS"]
-        - ansible_distribution_version | version_compare('7', '>=')
 
   tags:
     - role::docker_engine
