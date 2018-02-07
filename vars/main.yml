@@ -14,12 +14,17 @@ obsolete_docker_engine_packages:
 # Packages to install
 
 docker_engine_packages:
-  redhat:
+  redhat_6:
+    - docker-io
+    - python-docker-py
+    - libselinux-python
+
+  redhat_7:
     - docker-io
     - python-docker
     - libselinux-python
 
-  debian:
+  debian_stretch:
     - apt-transport-https
     - docker-ce
     - python-docker

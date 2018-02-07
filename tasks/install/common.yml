@@ -2,12 +2,13 @@
 # Install tasks common to all distros
 
 - block:
+    - debug: var=distro_packages_key
     - name: remove obsolete docker packages
       package:
         name: "{{ item }}"
         state: absent
       with_items: >-
-        {{ obsolete_docker_engine_packages[ansible_os_family | lower]
+        {{ obsolete_docker_engine_packages[distro_packages_key]
            | default([]) }}
       tags:
         - role::docker_engine
@@ -19,8 +20,11 @@
         name: "{{ item }}"
         state: present
       with_items: >-
-        {{ docker_engine_packages[ansible_os_family | lower]
+        {{ docker_engine_packages[distro_packages_key]
            | default([]) }}
+  vars:
+    distro_packages_key: >-
+      {{ ansible_os_family | lower + "_" + ansible_distribution_major_version }}
   tags:
     - role::docker_engine
     - role::docker_engine::packages
