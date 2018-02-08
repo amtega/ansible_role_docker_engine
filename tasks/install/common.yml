@@ -2,7 +2,6 @@
 # Install tasks common to all distros
 
 - block:
-    - debug: var=distro_packages_key
     - name: remove obsolete docker packages
       package:
         name: "{{ item }}"
