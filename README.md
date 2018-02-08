@@ -23,13 +23,13 @@ This is an example playbook:
 
 - hosts: all
   roles:
-    - docker_engine
+    - amtega.docker_engine
 ```
 
 ## Testing
 
 ```shell
-$ cd docker_engine/test
+$ cd amtega.docker_engine/test
 $ ansible-playbook main.yml
 ```
 
