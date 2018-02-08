@@ -16,15 +16,18 @@ obsolete_docker_engine_packages:
 docker_engine_packages:
   redhat_6:
     - docker-io
-    - python-docker-py
     - libselinux-python
+    - python-docker-py
+    - python-urllib3
 
   redhat_7:
     - docker-io
-    - python-docker
     - libselinux-python
+    - python-docker
+    - python-urllib3
 
   debian_stretch:
     - apt-transport-https
     - docker-ce
     - python-docker
+    - python-urllib3
