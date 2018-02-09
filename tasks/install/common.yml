@@ -7,7 +7,7 @@
         name: "{{ item }}"
         state: absent
       with_items: >-
-        {{ obsolete_docker_engine_packages[distro_packages_key]
+        {{ docker_engine_obsolete_packages[distro_packages_key]
            | default([]) }}
       tags:
         - role::docker_engine

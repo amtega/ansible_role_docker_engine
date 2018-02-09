@@ -23,3 +23,9 @@ docker_engine_storage_autoextend_threshold: 60
 docker_engine_storage_autoextend_percent: 20
 docker_engine_storage_device_wait_timeout: 60
 docker_engine_storage_wipe_signatures: false
+
+# HTTP proxy if docker engine is behind a firewall
+
+#docker_engine_proxy_http:
+#docker_engine_proxy_https:
+#docker_engine_no_proxy:
