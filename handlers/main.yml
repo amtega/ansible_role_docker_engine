@@ -1,2 +1,9 @@
 ---
 # Role handlers
+
+- name: docker_engine restart service
+  service:
+    name: docker
+    enabled: yes
+    state: restarted
+  listen: restart docker
