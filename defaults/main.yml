@@ -26,6 +26,6 @@ docker_engine_storage_wipe_signatures: false
 
 # HTTP proxy if docker engine is behind a firewall
 
-#docker_engine_http_proxy:
-#docker_engine_https_proxy:
-#docker_engine_no_proxy:
+docker_engine_http_proxy: "{{ ansible_env.http_proxy | default('') }}"
+docker_engine_https_proxy: "{{ ansible_env.https_proxy | default('') }}"
+docker_engine_no_proxy: "{{ ansible_env.no_proxy | default('') }}"
