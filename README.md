@@ -29,7 +29,7 @@ This is an example playbook:
 ## Testing
 
 ```shell
-$ cd amtega.docker_engine/test
+$ cd amtega.docker_engine/tests
 $ ansible-playbook main.yml
 ```
 
