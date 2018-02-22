@@ -21,6 +21,21 @@
       with_items: >-
         {{ docker_engine_packages[distro_packages_key]
            | default([]) }}
+
+    - name: create directory for http/https proxy config file in systemd
+      file:
+        path: "{{ docker_engine_systemd_proxy_config | dirname }}"
+        state: directory
+        owner: root
+        group: root
+        mode: 0755
+      when:
+        - ansible_service_mgr == "systemd"
+        - >-
+          docker_engine_http_proxy | default('') | length > 0
+          or docker_engine_https_proxy | default('') | length > 0
+          or docker_engine_no_proxy | default('') | length > 0
+
   vars:
     distro_packages_key: >-
       {{ ansible_os_family | lower + "_" + ansible_distribution_major_version }}
