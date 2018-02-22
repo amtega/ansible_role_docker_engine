@@ -2,6 +2,11 @@
 # Install tasks for debian
 
 - block:
+    - name: add gpg key for docker repository in apt
+      apt_key:
+        url: https://download.docker.com/linux/debian/gpg
+        state: present
+
     - apt_repository:
         repo: >-
             deb
@@ -9,11 +14,6 @@
             {{ ansible_distribution_release }} stable
         state: present
         filename: "docker"
-
-    - name: add gpg key for docker repository in apt
-      apt_key:
-        url: https://download.docker.com/linux/debian/gpg
-        state: present
   tags:
     - role::docker_engine
     - role::docker_engine::packages
