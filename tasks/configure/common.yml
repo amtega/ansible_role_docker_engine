@@ -16,25 +16,16 @@
       name: '{{ item }}'
     with_items: "{{ docker_engine_users | default([]) }}"
 
-  - block:
-      - name: create directory for http/https proxy config file in systemd
-        file:
-          path: "{{ docker_engine_systemd_proxy_config | dirname }}"
-          status: directory
-          owner: root
-          group: root
-          mode: 0755
-
-      - name: create http/https proxy config file for systemd service
-        template:
-          src: systemd_http_proxy.j2
-          dest: "{{ docker_engine_systemd_proxy_config }}"
-          owner: root
-          group: root
-          mode: 0644
-        register: create_systemd_proxy_config_result
-        notify:
-          - restart docker
+  - name: create http/https proxy config file for systemd service
+    template:
+      src: systemd_http_proxy.j2
+      dest: "{{ docker_engine_systemd_proxy_config }}"
+      owner: root
+      group: root
+      mode: 0644
+    register: create_systemd_proxy_config_result
+    notify:
+      - restart docker
     when:
       - ansible_service_mgr == "systemd"
       - >-
