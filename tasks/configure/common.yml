@@ -17,7 +17,7 @@
     with_items: "{{ docker_engine_users | default([]) }}"
 
   - block:
-      - name: create directory for http/https config file in systemd
+      - name: create directory for http/https proxy config file in systemd
         file:
           path: "{{ docker_engine_systemd_proxy_config | dirname }}"
           status: directory
@@ -25,7 +25,7 @@
           group: root
           mode: 0755
 
-      - name: create http/https config file for systemd service
+      - name: create http/https proxy config file for systemd service
         template:
           src: systemd_http_proxy.j2
           dest: "{{ docker_engine_systemd_proxy_config }}"
