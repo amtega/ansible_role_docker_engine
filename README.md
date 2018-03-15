@@ -16,6 +16,13 @@ None.
 
 ## Example Playbook
 
+If you want a quick setup on your local machine you can use the `files/setup.yml` playbook:
+
+```shell
+$ cd amtega.docker_engine/files
+$ ansible-playbook setup.yml --become --ask-become-pass
+```
+
 This is an example playbook:
 
 ```yaml

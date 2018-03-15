@@ -1,0 +1,17 @@
+---
+
+# Setup docker engine in localhost
+
+- name: setup docker docker
+  hosts: localhost
+  vars_prompt:
+    - name: "users"
+      prompt: >-
+        Comma separated list of usernames that should have permissions to run
+        docker"
+      default: "root"
+      private: no
+  roles:
+    - role: amtega.docker_engine
+      vars:
+        docker_engine_users: "{{ users.split(',') | map('trim') | list }}"
