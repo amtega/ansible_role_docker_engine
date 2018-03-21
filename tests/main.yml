@@ -1,8 +1,39 @@
 ---
 # Tasks for tesing role
 
-- name: test docker_engine the role
+- name: run idempotence test
   hosts: localhost
+  roles:
+    - role: amtega.vagrant_presets
+    - role: amtega.vagrant_sandbox
+      vagrant_sandbox_state: started
+  tags:
+    - sandbox
+
+- name: test docker_engine role
+  hosts: vagrant_sandbox_vms
+  roles:
+    - role: amtega.docker_engine
+      docker_engine_users:
+        - root
   tasks:
-    - include_role:
-        name: amtega.docker_engine
+    - name: get docker info
+      shell: docker info
+      register: docker_info_result
+      changed_when: false
+
+    - name: verify docker info
+      assert:
+        that: >-
+          {{ docker_info_result.stdout
+             | search("Server Version") }}
+  tags:
+    - idempotence
+
+- name: cleanup vagrant sandbox
+  hosts: localhost
+  roles:
+    - role: amtega.vagrant_sandbox
+      vagrant_sandbox_state: absent
+  tags:
+    - sandbox
