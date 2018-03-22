@@ -2,13 +2,13 @@
 # Configuration tasks common to all distros
 
 - block:
-    - name: ensure "docker" group is present
+    - name: ensure docker group is present
       group:
         name: docker
         state: present
         system: yes
 
-    - name: add users into "docker" group
+    - name: add users into docker group
       user:
         append: yes
         groups: docker
