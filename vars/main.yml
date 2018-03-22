@@ -14,8 +14,6 @@ docker_engine_obsolete_packages:
 
   centos_7: []
 
-  fedora_25: []
-
   fedora_26: []
 
   fedora_27: []
@@ -43,12 +41,6 @@ docker_engine_packages:
     - docker-io
     - libselinux-python
     - python-docker
-    - python-urllib3
-
-  fedora_25:
-    - docker-io
-    - libselinux-python
-    - python-docker-py
     - python-urllib3
 
   fedora_26:
