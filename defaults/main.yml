@@ -2,7 +2,7 @@
 # Role default lower priority variables
 
 # List of users to add to docker group. This is usefull to allow concrete users
-# to manage focker without being root
+# to manage docker without being root
 
 docker_engine_users: []
 
