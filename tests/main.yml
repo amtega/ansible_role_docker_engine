@@ -1,12 +1,34 @@
 ---
 # Tasks for tesing role
 
-- name: run idempotence test
+- name: configure vagrant sandbox environment
   hosts: localhost
   roles:
     - role: amtega.vagrant_presets
+  tasks:
+    - set_fact:
+        vagrant_sandbox_boxes: >-
+          {{ vagrant_presets_boxes + extra_boxes }}
+        vagrant_sandbox_vms: >-
+          {{ (vagrant_presets_vms + extra_vms)
+             | vagrant_presets_randomize_names }}
+  vars:
+    extra_boxes:
+      - name: debian_9
+        address: generic/debian9
+    extra_vms:
+      - name: debian_9
+        box: debian_9
+        state: started
+        hostname: debian-9
+        ansible_become: true
+
+- name: run idempotence test
+  hosts: localhost
+  roles:
     - role: amtega.vagrant_sandbox
       vagrant_sandbox_state: started
+      vagrant_sandbox_idempotence_test: false
   tags:
     - sandbox
 
