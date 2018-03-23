@@ -4,8 +4,7 @@
 # Packages to remove before install
 
 docker_engine_obsolete_packages:
-
-  debian:
+  debian_9:
     - docker
     - docker-engine
     - docker.io6
@@ -25,7 +24,7 @@ docker_engine_obsolete_packages:
 # Packages to install
 
 docker_engine_packages:
-  debian_stretch:
+  debian_9:
     - apt-transport-https
     - docker-ce
     - python-docker
