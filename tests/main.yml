@@ -19,7 +19,6 @@
     extra_vms:
       - name: debian_9
         box: debian_9
-        state: started
         hostname: debian-9
         ansible_become: true
 
@@ -48,7 +47,10 @@
       assert:
         that: >-
           {{ docker_info_result.stdout
-             | search("Server Version") }}
+             | search("Server Version")
+             or docker_info_result.stdout
+                | search("Storage Driver") }}
+
   tags:
     - idempotence
 
