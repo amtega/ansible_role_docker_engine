@@ -2,6 +2,11 @@
 # Install tasks for debian
 
 - block:
+    - name: add https support to apt
+      package:
+        name: apt-transport-https
+        state: present
+
     - name: add gpg key for docker repository in apt
       apt_key:
         url: https://download.docker.com/linux/debian/gpg
