@@ -2,45 +2,44 @@
 # Configuration tasks common to all distros
 
 - block:
-  - name: ensure "docker" group is present
-    group:
-      name: docker
-      state: present
-      system: yes
+    - name: ensure docker group is present
+      group:
+        name: docker
+        state: present
+        system: yes
 
-  - name: add users into "docker" group
-    user:
-      append: yes
-      groups: docker
-      state: present
-      name: '{{ item }}'
-    with_items: "{{ docker_engine_users | default([]) }}"
+    - name: add users into docker group
+      user:
+        append: yes
+        groups: docker
+        state: present
+        name: '{{ item }}'
+      with_items: "{{ docker_engine_users | default([]) }}"
 
-  - name: create http/https proxy config file for systemd service
-    template:
-      src: systemd_http_proxy.j2
-      dest: "{{ docker_engine_systemd_proxy_config }}"
-      owner: root
-      group: root
-      mode: 0644
-    register: create_systemd_proxy_config_result
-    notify:
-      - restart docker
-    when:
-      - ansible_service_mgr == "systemd"
-      - >-
-        docker_engine_http_proxy | default('') | length > 0
-        or docker_engine_https_proxy | default('') | length > 0
-        or docker_engine_no_proxy | default('') | length > 0
+    - name: create http/https proxy config file for systemd service
+      template:
+        src: systemd_http_proxy.j2
+        dest: "{{ docker_engine_systemd_proxy_config }}"
+        owner: root
+        group: root
+        mode: 0644
+      register: create_systemd_proxy_config_result
+      notify:
+        - restart docker
+      when:
+        - ansible_service_mgr == "systemd"
+        - >-
+          docker_engine_http_proxy | default('') | length > 0
+          or docker_engine_https_proxy | default('') | length > 0
+          or docker_engine_no_proxy | default('') | length > 0
 
-  - name: reload systemd to apply new http/https config file
-    shell: systemctl daemon-reload
-    when:
-      - ansible_service_mgr == "systemd"
-      - create_systemd_proxy_config_result | changed
+    - name: reload systemd to apply new http/https config file
+      shell: systemctl daemon-reload
+      when:
+        - ansible_service_mgr == "systemd"
+        - create_systemd_proxy_config_result | changed
 
-  - meta: flush_handlers
-
+    - meta: flush_handlers
   tags:
     - role::docker_engine
     - role::docker_engine::configure

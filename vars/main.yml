@@ -4,28 +4,42 @@
 # Packages to remove before install
 
 docker_engine_obsolete_packages:
-  fedora_25: []
+  debian_9:
+    - docker
+    - docker-engine
+    - docker.io6
+
+  centos_6: []
+
+  centos_7: []
 
   fedora_26: []
 
   fedora_27: []
 
-  redhat_6: []
+  rhel_6: []
 
-  redhat_7: []
-
-  debian:
-    - docker
-    - docker-engine
-    - docker.io6
+  rhel_7: []
 
 # Packages to install
 
 docker_engine_packages:
-  fedora_25:
+  debian_9:
+    - apt-transport-https
+    - docker-ce
+    - python-docker
+    - python-urllib3
+
+  centos_6:
     - docker-io
     - libselinux-python
     - python-docker-py
+    - python-urllib3
+
+  centos_7:
+    - docker-io
+    - libselinux-python
+    - python-docker
     - python-urllib3
 
   fedora_26:
@@ -49,12 +63,6 @@ docker_engine_packages:
   rhel_7:
     - docker-io
     - libselinux-python
-    - python-docker
-    - python-urllib3
-
-  debian_stretch:
-    - apt-transport-https
-    - docker-ce
     - python-docker
     - python-urllib3
 

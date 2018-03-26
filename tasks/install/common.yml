@@ -33,10 +33,11 @@
           docker_engine_http_proxy | default('') | length > 0
           or docker_engine_https_proxy | default('') | length > 0
           or docker_engine_no_proxy | default('') | length > 0
-
   vars:
     distro_packages_key: >-
-      {{ ansible_distribution | lower + "_" + ansible_distribution_major_version }}
+      {{ ansible_distribution
+         | lower
+         + "_" + ansible_distribution_major_version }}
   tags:
     - role::docker_engine
     - role::docker_engine::packages
