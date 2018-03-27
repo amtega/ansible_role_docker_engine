@@ -19,6 +19,9 @@
         state: present
       with_items: >-
         {{ docker_engine_packages[distro_packages_key] }}
+      notify:
+        - restart docker
+        - restart docker storage
 
     - name: create directory for http/https proxy config file in systemd
       file:
@@ -33,6 +36,9 @@
           docker_engine_http_proxy | default('') | length > 0
           or docker_engine_https_proxy | default('') | length > 0
           or docker_engine_no_proxy | default('') | length > 0
+      notify:
+        - restart docker
+        - restart docker storage
   vars:
     distro_packages_key: >-
       {{ ansible_distribution

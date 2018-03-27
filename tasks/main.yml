@@ -12,9 +12,3 @@
   tags:
     - role::docker_engine
     - role::docker_engine::configure
-
-- name: setup docker engine service
-  include_tasks: service/main.yml
-  tags:
-    - role::docker_engine
-    - role::docker_engine::service

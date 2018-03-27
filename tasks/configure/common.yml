@@ -26,6 +26,7 @@
       register: create_systemd_proxy_config_result
       notify:
         - restart docker
+        - restart docker storage
       when:
         - ansible_service_mgr == "systemd"
         - >-

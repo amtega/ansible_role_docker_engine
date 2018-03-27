@@ -10,6 +10,8 @@
     mode: 0644
     backup: no
   when: ansible_distribution_version | version_compare('7', '>=')
+  notify:
+    - restart docker storage
   tags:
     - role::docker_engine
     - role::docker_engine::configure
