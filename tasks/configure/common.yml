@@ -14,7 +14,7 @@
         groups: docker
         state: present
         name: '{{ item }}'
-      with_items: "{{ docker_engine_users | default([]) }}"
+      loop: "{{ docker_engine_users | default([]) }}"
 
     - name: create http/https proxy config file for systemd service
       template:
@@ -38,7 +38,7 @@
       shell: systemctl daemon-reload
       when:
         - ansible_service_mgr == "systemd"
-        - create_systemd_proxy_config_result | changed
+        - create_systemd_proxy_config_result is changed
 
     - meta: flush_handlers
   tags:

@@ -6,7 +6,7 @@
       package:
         name: "{{ item }}"
         state: absent
-      with_items: >-
+      loop: >-
         {{ docker_engine_obsolete_packages[distro_packages_key] }}
       tags:
         - role::docker_engine
@@ -17,7 +17,7 @@
       package:
         name: "{{ item }}"
         state: present
-      with_items: >-
+      loop: >-
         {{ docker_engine_packages[distro_packages_key] }}
       notify:
         - restart docker
