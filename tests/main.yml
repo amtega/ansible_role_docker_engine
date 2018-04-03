@@ -21,6 +21,8 @@
         box: debian_9
         hostname: debian-9
         ansible_become: true
+  tags:
+    - sandbox
 
 - name: run idempotence test
   hosts: localhost
@@ -47,7 +49,6 @@
         that: >-
           {{ docker_info_result.stdout is search("Server Version")
              or docker_info_result.stdout is search("Storage Driver") }}
-
   tags:
     - idempotence
 

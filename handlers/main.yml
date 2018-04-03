@@ -20,7 +20,7 @@
     - docker_engine_storage_driver | length != 0
     - >-
       ansible_distribution | lower in ["centos", "fedora", "rhel"]
-      and ansible_distribution_version | version_compare('7', '>=')
+      and ansible_distribution_version is version('7', '>=')
   listen: restart docker storage
   tags:
     - role::docker_engine
@@ -35,7 +35,7 @@
     - docker_engine_storage_driver | length == 0
     - >-
       ansible_distribution | lower in ["centos", "fedora", "rhel"]
-      and ansible_distribution_version | version_compare('7', '>=')
+      and ansible_distribution_version is version('7', '>=')
   listen: restart docker storage
   tags:
     - role::docker_engine

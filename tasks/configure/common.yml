@@ -14,7 +14,7 @@
         groups: docker
         state: present
         name: '{{ item }}'
-      with_items: "{{ docker_engine_users | default([]) }}"
+      loop: "{{ docker_engine_users | default([]) }}"
 
     - name: create http/https proxy config file for systemd service
       template:

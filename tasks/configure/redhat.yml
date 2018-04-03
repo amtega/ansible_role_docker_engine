@@ -9,7 +9,7 @@
     group: root
     mode: 0644
     backup: no
-  when: ansible_distribution_version | version_compare('7', '>=')
+  when: ansible_distribution_version is version('7', '>=')
   notify:
     - restart docker storage
   tags:
