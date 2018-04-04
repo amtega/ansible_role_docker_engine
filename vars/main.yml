@@ -31,6 +31,7 @@ docker_engine_packages:
     - python-urllib3
 
   centos_6:
+    - python-pip
     - docker-io
     - libselinux-python
     - python-docker-py
