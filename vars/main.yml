@@ -28,6 +28,7 @@ docker_engine_packages:
     - apt-transport-https
     - docker-ce
     - python-docker
+    - python-pip
     - python-urllib3
 
   centos_6:
@@ -38,30 +39,35 @@ docker_engine_packages:
     - python-urllib3
 
   centos_7:
+    - python-pip
     - docker-io
     - libselinux-python
     - python-docker
     - python-urllib3
 
   fedora_26:
+    - python-pip
     - docker-io
     - libselinux-python
     - python-docker-py
     - python-urllib3
 
   fedora_27:
+    - python-pip
     - docker-io
     - libselinux-python
     - python-docker-py
     - python-urllib3
 
   rhel_6:
+    - python-pip
     - docker-io
     - libselinux-python
     - python-docker-py
     - python-urllib3
 
   rhel_7:
+    - python-pip
     - docker-io
     - libselinux-python
     - python-docker
