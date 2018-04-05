@@ -9,15 +9,11 @@ docker_engine_obsolete_packages:
     - docker-engine
     - docker.io6
 
-  centos_6: []
-
   centos_7: []
 
   fedora_26: []
 
   fedora_27: []
-
-  rhel_6: []
 
   rhel_7: []
 
@@ -28,12 +24,7 @@ docker_engine_packages:
     - apt-transport-https
     - docker-ce
     - python-docker
-    - python-urllib3
-
-  centos_6:
-    - docker-io
-    - libselinux-python
-    - python-docker-py
+    - python-pip
     - python-urllib3
 
   centos_7:
@@ -54,13 +45,8 @@ docker_engine_packages:
     - python-docker-py
     - python-urllib3
 
-  rhel_6:
-    - docker-io
-    - libselinux-python
-    - python-docker-py
-    - python-urllib3
-
   rhel_7:
+    - python-pip
     - docker-io
     - libselinux-python
     - python-docker
