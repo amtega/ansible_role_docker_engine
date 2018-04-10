@@ -12,3 +12,9 @@
   tags:
     - role::docker_engine
     - role::docker_engine::configure
+
+- name: put docker engine into service
+  include_tasks: service/main.yml
+  tags:
+    - role::docker_engine
+    - role::docker_engine::service

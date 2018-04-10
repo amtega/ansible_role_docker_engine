@@ -24,6 +24,19 @@ docker_engine_storage_autoextend_percent: 20
 docker_engine_storage_device_wait_timeout: 60
 docker_engine_storage_wipe_signatures: false
 
+# Status of the docker registry container. Can be present, started, absent or
+# stopped.
+
+docker_engine_registry_state: started
+
+# Docker registry is a container. Here you can specify its name
+
+docker_engine_registry_container_name: registry
+
+# Port for the docker registry
+
+docker_engine_registry_port: 5000
+
 # HTTP proxy if docker engine is behind a firewall
 
 docker_engine_http_proxy: "{{ ansible_env.http_proxy | default('') }}"
