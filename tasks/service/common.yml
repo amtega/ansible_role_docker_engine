@@ -1,0 +1,16 @@
+---
+# Service tasks common to all distros
+
+- name: start docker registry
+  docker_container:
+    name: "{{ docker_engine_registry_container_name }}"
+    state: "{{ docker_engine_registry_state }}"
+    image: "{{ docker_engine_registry_image }}"
+    exposed:
+      - "5000"
+    ports:
+      - "{{ docker_engine_registry_port }}:5000"
+    restart_policy: always
+  tags:
+    - role::docker_engine
+    - role::docker_engine::service

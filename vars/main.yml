@@ -56,3 +56,7 @@ docker_engine_packages:
 
 docker_engine_systemd_proxy_config: >-
   /etc/systemd/system/docker.service.d/http-proxy.conf
+
+# Registry image to use
+
+docker_engine_registry_image: "registry:2"
