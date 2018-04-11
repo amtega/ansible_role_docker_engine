@@ -60,3 +60,7 @@ docker_engine_systemd_proxy_config: >-
 # Registry image to use
 
 docker_engine_registry_image: "registry:2"
+
+# Path to registries config file
+
+docker_engine_registries_conf_path: /etc/containers/registries.conf

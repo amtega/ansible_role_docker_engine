@@ -37,6 +37,21 @@ docker_engine_registry_container_name: registry
 
 docker_engine_registry_port: 5000
 
+# List of docker registries to configure in docker daemon
+
+docker_engine_registries:
+  - docker.io
+  - registry.fedoraproject.org
+  - registry.access.redhat.com
+
+# List of insecure registries to configure in docker daemon
+
+docker_engine_insecure_registries: []
+
+# List of blocked registries to configure in docker daemon
+
+docker_engine_blocked_registries: []
+
 # HTTP proxy if docker engine is behind a firewall
 
 docker_engine_http_proxy: "{{ ansible_env.http_proxy | default('') }}"
