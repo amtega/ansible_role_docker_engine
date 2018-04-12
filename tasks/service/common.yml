@@ -2,7 +2,7 @@
 # Service tasks common to all distros
 
 - block:
-    - name: start docker registry
+    - name: setup docker registry
       docker_container:
         name: "{{ docker_engine_registry_container_name }}"
         state: "{{ docker_engine_registry_state }}"
