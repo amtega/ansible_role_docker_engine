@@ -54,6 +54,6 @@ docker_engine_blocked_registries: []
 
 # HTTP proxy if docker engine is behind a firewall
 
-docker_engine_http_proxy: "{{ ansible_env.http_proxy | default('') }}"
-docker_engine_https_proxy: "{{ ansible_env.https_proxy | default('') }}"
-docker_engine_no_proxy: "{{ ansible_env.no_proxy | default('') }}"
+docker_engine_http_proxy: "{{ ansible_facts.env.http_proxy | default('') }}"
+docker_engine_https_proxy: "{{ ansible_facts.env.https_proxy | default('') }}"
+docker_engine_no_proxy: "{{ ansible_facts.env.no_proxy | default('') }}"

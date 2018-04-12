@@ -1,4 +1,4 @@
-{{ ansible_managed | comment }}
+{{ ansible_facts.managed | comment }}
 
 [Service]
 {% if docker_engine_http_proxy | default('') | length > 0 %}

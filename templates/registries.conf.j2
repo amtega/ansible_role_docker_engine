@@ -1,4 +1,4 @@
-{{ ansible_managed | comment }}
+{{ ansible_facts.managed | comment }}
 
 [registries.search]
 registries = [{{ registries | map("regex_replace", "(.*)", "'\\1'") | list | join(', ') }}]
