@@ -52,6 +52,10 @@ docker_engine_packages:
     - python-docker
     - python-urllib3
 
+# Docker daemon config file
+
+docker_engine_daemon_config: /etc/docker/daemon.json
+
 # Systemd config file for docker http proxy environment variables
 
 docker_engine_systemd_proxy_config: >-
