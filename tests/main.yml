@@ -23,8 +23,8 @@
 - name: test vagrant_engine role
   hosts: vagrant_sandbox_vms
   roles:
-    - role: amtega.vagrant_engine
-      vagrant_engine_users:
+    - role: amtega.docker_engine
+      docker_engine_users:
         - root
   tasks:
     - name: get vagrant info
