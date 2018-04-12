@@ -27,21 +27,21 @@
       docker_engine_users:
         - root
   tasks:
-    - name: get vagrant info
-      shell: vagrant info
-      register: vagrant_info_result
+    - name: get docker info
+      shell: docker info
+      register: docker_info_result
       changed_when: false
 
-    - name: verify vagrant info
+    - name: verify docker info
       assert:
         that: >-
-          {{ vagrant_info_result.stdout is search("Server Version")
-             or vagrant_info_result.stdout is search("Storage Driver") }}
+          {{ docker_info_result.stdout is search("Server Version")
+             or docker_info_result.stdout is search("Storage Driver") }}
 
-    - name: check vagrant registry service
+    - name: check docker registry service
       wait_for:
-        host: "{{ ansible_facts.host }}"
-        port: "{{ vagrant_engine_registry_port }}"
+        host: "{{ inventory_hostname }}"
+        port: "{{ docker_engine_registry_port }}"
         timeout: 60
         connect_timeout: 5
   tags:
