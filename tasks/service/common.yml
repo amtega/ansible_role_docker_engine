@@ -22,6 +22,14 @@
       when: docker_engine_registry_state in ["present", "started"]
       changed_when: false
 
+    - name: setup registries config directory
+      file:
+        path: "{{ docker_engine_registries_conf_path }}"
+        state: directory
+        owner: root
+        group: root
+        mode: 0644
+
     - name: setup docker registries
       template:
         src: registries.conf.j2
