@@ -1,16 +1,54 @@
 ---
 # Service tasks common to all distros
 
-- name: start docker registry
-  docker_container:
-    name: "{{ docker_engine_registry_container_name }}"
-    state: "{{ docker_engine_registry_state }}"
-    image: "{{ docker_engine_registry_image }}"
-    exposed:
-      - "5000"
-    ports:
-      - "{{ docker_engine_registry_port }}:5000"
-    restart_policy: always
+- block:
+    - name: setup docker registry
+      docker_container:
+        name: "{{ docker_engine_registry_container_name }}"
+        state: "{{ docker_engine_registry_state }}"
+        image: "{{ docker_engine_registry_image }}"
+        exposed:
+          - "5000"
+        ports:
+          - "{{ docker_engine_registry_port }}:5000"
+        restart_policy: always
+      register: docker_engine_start_registry
+
+    - name: get docker registry ip address
+      shell: >-
+        docker inspect --format='{''{.NetworkSettings.IPAddress}''}'
+        {{ docker_engine_registry_container_name }}
+      register: docker_engine_search_registry_ip_result
+      when: docker_engine_registry_state in ["present", "started"]
+      changed_when: false
+
+    - name: setup registries config directory
+      file:
+        path: "{{ docker_engine_registries_conf_path | dirname }}"
+        state: directory
+        owner: root
+        group: root
+        mode: 0644
+
+    - name: setup docker registries
+      template:
+        src: registries.conf.j2
+        dest: "{{ docker_engine_registries_conf_path }}"
+        owner: root
+        group: root
+        mode: 0644
+      vars:
+        registries: "{{ docker_engine_registries }}"
+        insecure: >-
+          {{ (docker_engine_registry_state in ["present", "started"])
+             | ternary(docker_engine_insecure_registries
+                       + [ docker_engine_search_registry_ip_result.stdout
+                           | default("localhost")
+                           + ":5000" ],
+                       docker_engine_insecure_registries) }}
+        blocked: "{{ docker_engine_blocked_registries }}"
+      notify:
+        - restart docker
   tags:
     - role::docker_engine
     - role::docker_engine::service

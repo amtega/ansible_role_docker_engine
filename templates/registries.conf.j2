@@ -1,0 +1,10 @@
+{{ ansible_managed | comment }}
+
+[registries.search]
+registries = [{{ registries | map("regex_replace", "(.*)", "'\\1'") | list | join(', ') }}]
+
+[registries.insecure]
+registries = [{{ insecure| map("regex_replace", "(.*)", "'\\1'") | list | join(', ') }}]
+
+[registries.block]
+registries = [{{ blocked | map("regex_replace", "(.*)", "'\\1'") | list | join(', ') }}]

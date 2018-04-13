@@ -16,6 +16,17 @@
         name: '{{ item }}'
       loop: "{{ docker_engine_users | default([]) }}"
 
+    - name: create docker daemon config file
+      template:
+        src: daemon.json.j2
+        dest: "{{ docker_engine_daemon_config }}"
+        owner: root
+        group: root
+        mode: 0644
+      notify:
+        - restart docker
+        - restart docker storage
+
     - name: create http/https proxy config file for systemd service
       template:
         src: systemd_http_proxy.j2
@@ -28,7 +39,7 @@
         - restart docker
         - restart docker storage
       when:
-        - ansible_service_mgr == "systemd"
+        - ansible_facts.service_mgr == "systemd"
         - >-
           docker_engine_http_proxy | default('') | length > 0
           or docker_engine_https_proxy | default('') | length > 0
@@ -37,7 +48,7 @@
     - name: reload systemd to apply new http/https config file
       shell: systemctl daemon-reload
       when:
-        - ansible_service_mgr == "systemd"
+        - ansible_facts.service_mgr == "systemd"
         - create_systemd_proxy_config_result is changed
 
     - meta: flush_handlers

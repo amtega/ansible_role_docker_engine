@@ -7,7 +7,7 @@ docker_engine_obsolete_packages:
   debian_9:
     - docker
     - docker-engine
-    - docker.io6
+    - docker.io
 
   centos_7: []
 
@@ -52,6 +52,10 @@ docker_engine_packages:
     - python-docker
     - python-urllib3
 
+# Docker daemon config file
+
+docker_engine_daemon_config: /etc/docker/daemon.json
+
 # Systemd config file for docker http proxy environment variables
 
 docker_engine_systemd_proxy_config: >-
@@ -60,3 +64,7 @@ docker_engine_systemd_proxy_config: >-
 # Registry image to use
 
 docker_engine_registry_image: "registry:2"
+
+# Path to registries config file
+
+docker_engine_registries_conf_path: /etc/containers/registries.conf

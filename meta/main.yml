@@ -24,5 +24,5 @@ galaxy_info:
 dependencies:
     - role: amtega.epel
       when: >-
-        ansible_distribution | lower in ["rhel", "centos"]
-        and ansible_distribution_major_version == "6"
+        ansible_facts.distribution | lower in ["rhel", "centos"]
+        and ansible_facts.distribution_major_version == "6"

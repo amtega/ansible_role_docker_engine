@@ -1,27 +1,28 @@
 ---
 # Tasks for testing role
 
-- name: configure docker sandbox environment
+- name: configure vagrant sandbox environment
   hosts: localhost
   roles:
-    - role: amtega.docker_presets
-      docker_presets_images_json_query: >-
-        [? (starts_with(name, `centos_7`))
-           || starts_with(name, `debian`)
-           || starts_with(name, `fedora`) ]
+    - role: amtega.vagrant_presets
+      vagrant_presets_boxes_json_query: >-
+        [? (starts_with(name, `centos-7`))
+           || starts_with(name, `debian-9`)
+           || starts_with(name, `fedora-26`)
+           || starts_with(name, `fedora-27`) ]
   tags:
     - sandbox
 
 - name: run idempotence test
   hosts: localhost
   roles:
-    - role: amtega.docker_sandbox
-      docker_sandbox_state: started
+    - role: amtega.vagrant_sandbox
+      vagrant_sandbox_state: started
   tags:
     - sandbox
 
-- name: test docker_engine role
-  hosts: docker_sandbox_containers
+- name: test vagrant_engine role
+  hosts: vagrant_sandbox_vms
   roles:
     - role: amtega.docker_engine
       docker_engine_users:
@@ -40,17 +41,17 @@
 
     - name: check docker registry service
       wait_for:
-        host: "{{ ansible_host }}"
+        host: "{{ inventory_hostname }}"
         port: "{{ docker_engine_registry_port }}"
         timeout: 60
         connect_timeout: 5
   tags:
     - idempotence
 
-- name: cleanup docker sandbox
+- name: cleanup vagrant sandbox
   hosts: localhost
   roles:
-    - role: amtega.docker_sandbox
-      docker_sandbox_state: absent
+    - role: amtega.vagrant_sandbox
+      vagrant_sandbox_state: absent
   tags:
     - sandbox
