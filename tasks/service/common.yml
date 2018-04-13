@@ -24,7 +24,7 @@
 
     - name: setup registries config directory
       file:
-        path: "{{ docker_engine_registries_conf_path }}"
+        path: "{{ docker_engine_registries_conf_path | dirname }}"
         state: directory
         owner: root
         group: root
