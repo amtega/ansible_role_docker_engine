@@ -1,6 +1,29 @@
 ---
 # Configuration tasks for Red Hat
 
+- name: configure daemon startup options
+  lineinfile:
+    dest: "{{ docker_engine_sysconfig }}"
+    regexp: "^OPTIONS="
+    line: 'OPTIONS="{{ all_options }}"'
+  vars:
+    socket_options: >-
+      --host=unix://{{ docker_engine_socket }}
+    listen_options: >-
+      {{ docker_engine_listen
+         | map("regex_replace", "(.*)", "--host=tcp://\1")
+         | list
+         | join(" ")}}
+    extra_options: >-
+      {{ docker_engine_startup_options | join(" ") }}
+    all_options: >-
+      {{ socket_options }}
+      {{ listen_options }}
+      {{ extra_options }}
+  notify:
+    - restart docker
+    - restart docker storage
+
 - name: configure docker storage
   template:
     src: docker_storage.j2

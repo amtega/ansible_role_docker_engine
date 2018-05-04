@@ -1,2 +1,29 @@
 ---
 # Configuration tasks for Debian
+
+- name: configure daemon startup options
+  lineinfile:
+    dest: "{{ docker_engine_systemd_service[distro_key] }}"
+    regexp: "^ExecStart="
+    line: 'ExecStart="/usr/bin/dockerd {{ all_options }}"'
+  vars:
+    distro_key: >-
+      {{ ansible_facts.distribution
+         | lower
+         + "_" + ansible_facts.distribution_major_version }}
+    socket_options: >-
+      --host=unix://{{ docker_engine_socket }}
+    listen_options: >-
+      {{ docker_engine_listen
+         | map("regex_replace", "(.*)", "--host=tcp://\1")
+         | list
+         | join(" ")}}
+    extra_options: >-
+      {{ docker_engine_startup_options | join(" ") }}
+    all_options: >-
+      {{ socket_options }}
+      {{ listen_options }}
+      {{ extra_options }}
+  notify:
+    - restart docker
+    - restart docker storage

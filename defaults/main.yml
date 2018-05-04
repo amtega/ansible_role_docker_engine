@@ -6,6 +6,23 @@
 
 docker_engine_users: []
 
+# Engine local socket path. If empty will not be used.
+
+docker_engine_socket: /var/run/docker.sock
+
+# List of ip strings with the format address:port where the engine will listen.
+# If empty will not be used
+
+docker_engine_listen:
+  - "{{ ansible_facts.default_ipv4.address  }}:2375"
+
+# List of extra options to pass to the engine daemon during startup
+
+docker_engine_startup_options:
+  - "--selinux-enabled"
+  - "--log-driver=journald"
+  - "--live-restore"
+
 # Docker storage parameters
 # See /usr/lib/docker-storage-setup/docker-storage-setup for details
 
