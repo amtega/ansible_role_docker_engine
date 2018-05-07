@@ -23,6 +23,15 @@
         - restart docker
         - restart docker storage
 
+    - name: create directory for local socket
+      file:
+        path: "{{ docker_engine_socket | dirname }}"
+        state: directory
+        owner: root
+        group: root
+        mode: 0755
+      when: docker_engine_socket | length > 0
+
     - name: create directory for http/https proxy config file in systemd
       file:
         path: "{{ docker_engine_systemd_proxy_config | dirname }}"
@@ -36,9 +45,6 @@
           docker_engine_http_proxy | default('') | length > 0
           or docker_engine_https_proxy | default('') | length > 0
           or docker_engine_no_proxy | default('') | length > 0
-      notify:
-        - restart docker
-        - restart docker storage
   vars:
     distro_packages_key: >-
       {{ ansible_facts.distribution

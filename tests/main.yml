@@ -21,7 +21,7 @@
   tags:
     - sandbox
 
-- name: test vagrant_engine role
+- name: test docker_engine role
   hosts: vagrant_sandbox_vms
   roles:
     - role: amtega.docker_engine
@@ -38,6 +38,11 @@
         that: >-
           {{ docker_info_result.stdout is search("Server Version")
              or docker_info_result.stdout is search("Storage Driver") }}
+
+    - name: check docker listen options
+      wait_for:
+        port: 2375
+        timeout: 15
 
     - name: check docker registry service
       wait_for:

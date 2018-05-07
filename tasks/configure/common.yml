@@ -16,7 +16,7 @@
         name: '{{ item }}'
       loop: "{{ docker_engine_users | default([]) }}"
 
-    - name: create docker daemon config file
+    - name: create docker daemon JSON config file
       template:
         src: daemon.json.j2
         dest: "{{ docker_engine_daemon_config }}"

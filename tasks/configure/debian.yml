@@ -1,2 +1,36 @@
 ---
 # Configuration tasks for Debian
+
+- name: configure systemd daemon service startup options
+  lineinfile:
+    dest: "{{ docker_engine_systemd_service[distro_key] }}"
+    regexp: "^ExecStart="
+    line: 'ExecStart=/usr/bin/dockerd {{ all_options }}'
+  register: create_systemd_service_config_result
+  vars:
+    distro_key: >-
+      {{ ansible_facts.distribution
+         | lower
+         + "_" + ansible_facts.distribution_major_version }}
+    socket_options: >-
+      --host=unix://{{ docker_engine_socket }}
+    listen_options: >-
+      {{ docker_engine_listen
+         | map("regex_replace", "(.*)", "--host=tcp://\1")
+         | list
+         | join(" ")}}
+    extra_options: >-
+      {{ docker_engine_startup_options | join(" ") }}
+    all_options: >-
+      {{ socket_options }}
+      {{ listen_options }}
+      {{ extra_options }}
+
+- name: reload systemd to apply new daemon startup options
+  shell: systemctl daemon-reload
+  when:
+    - ansible_facts.service_mgr == "systemd"
+    - create_systemd_service_config_result is changed
+  notify:
+    - restart docker
+    - restart docker storage

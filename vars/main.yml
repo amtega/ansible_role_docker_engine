@@ -52,6 +52,19 @@ docker_engine_packages:
     - python-docker
     - python-urllib3
 
+# Docker daemon sysconfig file
+
+docker_engine_sysconfig: /etc/sysconfig/docker
+
+# Docker daemon systemd service file
+
+docker_engine_systemd_service:
+  debian_9: /lib/systemd/system/docker.service
+  centos_7: /usr/lib/systemd/system/docker.service
+  fedora_26: /usr/lib/systemd/system/docker.service
+  fedora_27: /usr/lib/systemd/system/docker.service
+  rhel_7: /usr/lib/systemd/system/docker.service
+
 # Docker daemon config file
 
 docker_engine_daemon_config: /etc/docker/daemon.json
