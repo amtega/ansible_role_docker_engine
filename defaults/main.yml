@@ -22,7 +22,6 @@ docker_engine_listen:
 docker_engine_startup_options:
   - "--selinux-enabled"
   - "--log-driver=journald"
-  - "--live-restore"
 
 # Docker storage parameters
 # See /usr/lib/docker-storage-setup/docker-storage-setup for details
