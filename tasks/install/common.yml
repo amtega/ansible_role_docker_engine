@@ -2,26 +2,39 @@
 # Install tasks common to all distros
 
 - block:
-    - name: remove obsolete docker packages
+    - name: remove obsolete docker operating system packages
       package:
         name: "{{ item }}"
         state: absent
       loop: >-
-        {{ docker_engine_obsolete_packages[distro_packages_key] }}
-      tags:
-        - role::docker_engine
-        - role::docker_engine::packages
-        - role::docker_engine::install
+        {{ docker_engine_obsolete_os_packages[distro_packages_key] }}
 
-    - name: install docker packages
+    - name: install required operating system packages
       package:
         name: "{{ item }}"
         state: present
       loop: >-
-        {{ docker_engine_packages[distro_packages_key] }}
+        {{ docker_engine_os_packages[distro_packages_key] }}
       notify:
         - restart docker
         - restart docker storage
+
+    - name: remove obsolete python packages
+      pip:
+        name: "{{ item }}"
+        state: present
+        extra_args: "{{ ansible_pip_extra_args }}"
+      loop: >-
+        {{ docker_engine_obsolete_python_packages[distro_packages_key] }}
+      environment: "{{ docker_engine_http_proxy_environment }}"
+
+    - name: install required python packages
+      pip:
+        name: "{{ item }}"
+        state: present
+        extra_args: "{{ ansible_pip_extra_args }}"
+      loop: "{{ docker_engine_python_packages[distro_packages_key] }}"
+      environment: "{{ docker_engine_http_proxy_environment }}"
 
     - name: create directory for local socket
       file:

@@ -1,9 +1,9 @@
 ---
 # Role variables
 
-# Packages to remove before install
+# Operating system packages to remove before install
 
-docker_engine_obsolete_packages:
+docker_engine_obsolete_os_packages:
   debian_9:
     - docker
     - docker-engine
@@ -11,46 +11,81 @@ docker_engine_obsolete_packages:
 
   centos_7: []
 
-  fedora_26: []
-
   fedora_27: []
+
+  fedora_28: []
 
   rhel_7: []
 
-# Packages to install
+# Operating system packages to install
 
-docker_engine_packages:
+docker_engine_os_packages:
   debian_9:
     - apt-transport-https
     - docker-ce
-    - python-docker
     - python-pip
     - python-urllib3
 
   centos_7:
     - docker-io
     - libselinux-python
-    - python-docker
-    - python-urllib3
-
-  fedora_26:
-    - docker-io
-    - libselinux-python
-    - python-docker-py
+    - python-pip
     - python-urllib3
 
   fedora_27:
     - docker-io
     - libselinux-python
-    - python-docker-py
+    - python-pip
+    - python-urllib3
+
+  fedora_28:
+    - docker-io
+    - libselinux-python
+    - python-pip
     - python-urllib3
 
   rhel_7:
     - python-pip
     - docker-io
     - libselinux-python
-    - python-docker
+    - python-pip
     - python-urllib3
+
+# Python packages to remove before install
+
+docker_engine_obsolete_python_packages:
+  debian_9:
+    - docker-py
+
+  centos_7:
+    - docker-py
+
+  fedora_27:
+    - docker-py
+
+  fedora_28:
+    - docker-py
+
+  rhel_7:
+    - docker-py
+
+# Python  packages to install
+
+docker_engine_python_packages:
+  debian_9:
+    - docker
+
+  centos_7:
+    - docker
+
+  fedora_27:
+    - docker
+
+  fedora_28:
+    - docker
+
+  rhel_7:
+    - docker
 
 # Docker daemon sysconfig file
 
@@ -61,8 +96,8 @@ docker_engine_sysconfig: /etc/sysconfig/docker
 docker_engine_systemd_service:
   debian_9: /lib/systemd/system/docker.service
   centos_7: /usr/lib/systemd/system/docker.service
-  fedora_26: /usr/lib/systemd/system/docker.service
   fedora_27: /usr/lib/systemd/system/docker.service
+  fedora_28: /usr/lib/systemd/system/docker.service
   rhel_7: /usr/lib/systemd/system/docker.service
 
 # Docker daemon config file
@@ -81,3 +116,16 @@ docker_engine_registry_image: "registry:2"
 # Path to registries config file
 
 docker_engine_registries_conf_path: /etc/containers/registries.conf
+
+# Proxy environment settings
+
+docker_engine_http_proxy_config:
+    http_proxy: "{{ docker_engine_http_proxy | default('') }}"
+    https_proxy: "{{ docker_engine_https_proxy | default('') }}"
+    http_no_proxy: "{{ docker_engine_http_no_proxy | default('') }}"
+
+docker_engine_http_proxy_environment: >-
+  {{ (docker_engine_http_proxy is defined
+      or docker_engine_https_proxy is defined
+      or docker_engine_http_no_proxy is defined)
+     | ternary(docker_engine_http_proxy_config, {}) }}
