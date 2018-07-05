@@ -76,17 +76,7 @@ docker_engine_https_proxy: "{{ ansible_facts.env.https_proxy | default('') }}"
 docker_engine_no_proxy: "{{ ansible_facts.env.no_proxy | default('') }}"
 
 #
-# Proxy settings
+# Extra arguments for the python pip tool to install packages
 #
 
-# IP address and port, or URL, for using an http_proxy.
-
-#docker_engine_http_proxy:
-
-# IP address and port, or URL, for using an https_proxy.
-
-#docker_engine_https_proxy:
-
-# Exclude IP address or URL from the proxy.
-
-#docker_engine_no_proxy:
+docker_engine_pip_extra_args: "--upgrade"
