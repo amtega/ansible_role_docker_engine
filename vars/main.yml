@@ -1,6 +1,22 @@
 ---
 # Role variables
 
+# Supported distributions
+
+docker_engine_supported_distributions:
+  - centos
+  - debian
+  - fedora
+  - rhel
+
+# Supported distributions versions
+
+docker_engine_supported_versions:
+  centos: 7
+  debian: 9
+  fedora: 27
+  rhel: 7
+
 # Operating system packages to remove before install
 
 docker_engine_obsolete_os_packages:
