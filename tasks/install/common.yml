@@ -22,8 +22,7 @@
     - name: remove obsolete python packages
       pip:
         name: "{{ item }}"
-        state: present
-        extra_args: "{{ ansible_pip_extra_args }}"
+        state: absent
       loop: >-
         {{ docker_engine_obsolete_python_packages[distro_packages_key] }}
       environment: "{{ docker_engine_http_proxy_environment }}"
@@ -32,7 +31,7 @@
       pip:
         name: "{{ item }}"
         state: present
-        extra_args: "{{ ansible_pip_extra_args }}"
+        extra_args: "{{ docker_engine_pip_extra_args }}"
       loop: "{{ docker_engine_python_packages[distro_packages_key] }}"
       environment: "{{ docker_engine_http_proxy_environment }}"
 
