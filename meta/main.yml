@@ -4,12 +4,12 @@ galaxy_info:
   description: Setup docker engine
   company: AMTEGA - Xunta de Galicia
   license: GPLv3 or EUPL
-  min_ansible_version: 2.5
+  min_ansible_version: 2.6
   platforms:
   - name: Fedora
     versions:
-      - 25
-      - 26
+      - 27
+      - 28
   - name: EL
     versions:
       - 7
@@ -22,7 +22,7 @@ galaxy_info:
     - cloud
 
 dependencies:
-    - role: amtega.epel
-      when: >-
-        ansible_facts.distribution | lower in ["rhel", "centos"]
-        and ansible_facts.distribution_major_version == "6"
+  - role: amtega.epel
+    when:
+      - ansible_facts.distribution | lower in ['centos', 'rhel']
+      - ansible_facts.distribution_version is version("6", ">=")
