@@ -12,5 +12,5 @@
       vars:
         distribution: "{{ ansible_facts.distribution | lower }}"
   tags:
-    - role::tomcat
-    - role::tomcat::check
+    - role::docker_engine
+    - role::docker_engine::check
