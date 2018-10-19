@@ -1,5 +1,6 @@
 ---
 galaxy_info:
+  role_name: docker_engine
   author: Juan Antonio Valiño García
   description: Setup docker engine
   company: AMTEGA - Xunta de Galicia
