@@ -23,6 +23,51 @@ galaxy_info:
     - cloud
 
 dependencies:
+  - role: amtega.check_platform
+    check_platform_distributions:
+      centos: 7
+      debian: 9
+      fedora: 27
+      rhel: 7
+
+  - role: amtega.proxy_client
+    proxy_client_permanent: no
+
+  - role: amtega.packages
+    packages_os:
+      all:
+        all:
+          python-urllib3: absent
+      centos:
+        all:
+          python-requests: absent
+          docker-io: present
+          libselinux-python: present
+      debian:
+        all:
+          docker: absent
+          docker-engine: absent
+          docker.io: absent
+          apt-transport-https: present
+          docker-ce: present
+      fedora:
+        all:
+          python-requests: absent
+          docker-io: present
+          libselinux-python: present
+      rhel:
+        all:
+          python-requests: absent
+          docker-io: present
+          libselinux-python: present
+    packages_python:
+      all:
+        all:
+          docker-py: absent
+          docker: latest
+          requests: latest
+          urllib3: latest
+
   - role: amtega.epel
     when:
       - ansible_facts.distribution | lower in ['centos', 'rhel']

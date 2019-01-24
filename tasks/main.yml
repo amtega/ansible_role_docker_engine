@@ -1,12 +1,6 @@
 ---
 # Role tasks
 
-- name: sanity checks
-  import_tasks: check/main.yml
-  tags:
-    - role::docker_engine
-    - role::docker_engine::check
-
 - name: install docker engine
   include_tasks: install/main.yml
   tags:

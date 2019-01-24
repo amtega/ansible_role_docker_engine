@@ -29,7 +29,7 @@
         - root
   tasks:
     - name: get docker info
-      shell: docker info
+      command: docker info
       register: docker_info_result
       changed_when: false
 

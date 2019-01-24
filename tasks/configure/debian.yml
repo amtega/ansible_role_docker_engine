@@ -27,7 +27,7 @@
       {{ extra_options }}
 
 - name: reload systemd to apply new daemon startup options
-  shell: systemctl daemon-reload
+  command: systemctl daemon-reload
   when:
     - ansible_facts.service_mgr == "systemd"
     - create_systemd_service_config_result is changed
