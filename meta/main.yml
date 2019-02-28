@@ -50,20 +50,27 @@ dependencies:
         all:
           docker-io: present
           libselinux-python: present
+          python-requests: present
+          python-urllib3: present
       debian:
         all:
           docker: absent
           docker-engine: absent
           docker.io: absent
+          python-requests: present
+          python-urllib3: present
           apt-transport-https: present
           docker-ce: present
       fedora:
         all:
           docker-io: present
           libselinux-python: present
+          python3-requests: present
+          python3-urllib3: present
       rhel:
         all:
-          python-requests: absent
+          python-requests: present
+          python-urllib3: present
           docker-io: present
           libselinux-python: present
     packages_python:
@@ -73,11 +80,5 @@ dependencies:
             state: absent
           - name: docker
             state: latest
-          - name: requests
-            state: latest
-            pip_extra_args: "--force-reinstall --upgrade"
-          - name: urllib3
-            state: latest
-            pip_extra_args: "--force-reinstall --upgrade"
     tags:
       - role::docker_engine
