@@ -46,12 +46,8 @@ dependencies:
 
   - role: amtega.packages
     packages_os:
-      all:
-        all:
-          python-urllib3: absent
       centos:
         all:
-          python-requests: absent
           docker-io: present
           libselinux-python: present
       debian:
@@ -63,7 +59,6 @@ dependencies:
           docker-ce: present
       fedora:
         all:
-          python-requests: absent
           docker-io: present
           libselinux-python: present
       rhel:
@@ -74,9 +69,15 @@ dependencies:
     packages_python:
       all:
         all:
-          docker-py: absent
-          docker: latest
-          requests: latest
-          urllib3: latest
+          - name: docker-py
+            state: absent
+          - name: docker
+            state: latest
+          - name: requests
+            state: latest
+            pip_extra_args: "--force-reinstall --upgrade"
+          - name: urllib3
+            state: latest
+            pip_extra_args: "--force-reinstall --upgrade"
     tags:
       - role::docker_engine
