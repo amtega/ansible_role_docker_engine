@@ -29,7 +29,7 @@
       file:
         path: "{{ docker_engine_daemon_config }}"
         state: absent
-      notify:      
+      notify:
         - restart docker
         - restart docker storage
   tags:
