@@ -29,6 +29,9 @@
       file:
         path: "{{ docker_engine_daemon_config }}"
         state: absent
+      notify:      
+        - restart docker
+        - restart docker storage
   tags:
     - role::docker_engine
     - role::docker_engine::packages

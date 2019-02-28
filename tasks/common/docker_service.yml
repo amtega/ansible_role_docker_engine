@@ -1,0 +1,11 @@
+---
+# Docker service tasks
+
+- name: setup docker service
+  service:
+    name: docker
+    enabled: yes
+    state: "{{ docker_engine_service_state }}"
+  tags:
+    - role::docker_engine
+    - role::docker_engine::service

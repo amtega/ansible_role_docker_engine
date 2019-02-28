@@ -33,6 +33,7 @@
     mode: 0644
     backup: no
   when: ansible_facts.distribution_version is version('7', '>=')
+  register: docker_engine_config_storage_result
   notify:
     - restart docker storage
   tags:
