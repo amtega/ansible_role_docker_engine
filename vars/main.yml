@@ -14,7 +14,7 @@ docker_engine_systemd_service:
   fedora_28: /usr/lib/systemd/system/docker.service
   rhel_7: /usr/lib/systemd/system/docker.service
 
-# Docker daemon config file
+# Docker daemon config file (obsolete)
 
 docker_engine_daemon_config: /etc/docker/daemon.json
 
