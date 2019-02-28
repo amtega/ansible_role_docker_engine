@@ -28,6 +28,8 @@
       docker_engine_users:
         - root
   tasks:
+    - meta: flush_handlers
+
     - name: get docker info
       command: docker info
       register: docker_info_result
