@@ -1,22 +1,24 @@
 ---
+# Role dependencies
+
 galaxy_info:
   role_name: docker_engine
   author: Juan Antonio Valiño García
   description: Setup docker engine
   company: AMTEGA - Xunta de Galicia
   license: GPLv3 or EUPL
-  min_ansible_version: 2.6
+  min_ansible_version: 2.7
   platforms:
-  - name: Fedora
-    versions:
-      - 27
-      - 28
-  - name: EL
-    versions:
-      - 7
-  - name: Debian
-    versions:
-      - stretch
+    - name: Debian
+      versions:
+        - stretch
+    - name: EL
+      versions:
+        - 7
+    - name: Fedora
+      versions:
+        - 27
+        - 28
   galaxy_tags:
     - docker
     - system
@@ -29,9 +31,18 @@ dependencies:
       debian: 9
       fedora: 27
       rhel: 7
+    tags:
+      - role::docker_engine
 
   - role: amtega.proxy_client
     proxy_client_permanent: no
+    tags:
+      - role::docker_engine
+
+  - role: amtega.epel
+    when:
+      - ansible_facts.distribution | lower in ['centos', 'rhel']
+      - ansible_facts.distribution_version is version("6", ">=")
 
   - role: amtega.packages
     packages_os:
@@ -67,8 +78,5 @@ dependencies:
           docker: latest
           requests: latest
           urllib3: latest
-
-  - role: amtega.epel
-    when:
-      - ansible_facts.distribution | lower in ['centos', 'rhel']
-      - ansible_facts.distribution_version is version("6", ">=")
+    tags:
+      - role::docker_engine
