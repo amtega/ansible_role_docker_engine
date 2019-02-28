@@ -28,8 +28,10 @@
       docker_engine_users:
         - root
   tasks:
+    - meta: flush_handlers
+
     - name: get docker info
-      shell: docker info
+      command: docker info
       register: docker_info_result
       changed_when: false
 
@@ -46,7 +48,6 @@
 
     - name: check docker registry service
       wait_for:
-        host: "{{ inventory_hostname }}"
         port: "{{ docker_engine_registry_port }}"
         timeout: 60
         connect_timeout: 5
@@ -59,4 +60,5 @@
     - role: amtega.vagrant_sandbox
       vagrant_sandbox_state: absent
   tags:
+    - cleanup
     - sandbox

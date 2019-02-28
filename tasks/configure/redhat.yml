@@ -13,7 +13,7 @@
       {{ docker_engine_listen
          | map("regex_replace", "(.*)", "--host=tcp://\1")
          | list
-         | join(" ")}}
+         | join(" ") }}
     extra_options: >-
       {{ docker_engine_startup_options | join(" ") }}
     all_options: >-
@@ -33,6 +33,7 @@
     mode: 0644
     backup: no
   when: ansible_facts.distribution_version is version('7', '>=')
+  register: docker_engine_config_storage_result
   notify:
     - restart docker storage
   tags:

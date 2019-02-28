@@ -1,12 +1,12 @@
 {{ ansible_managed | comment }}
 
 [Service]
-{% if docker_engine_http_proxy | default('') | length > 0 %}
-Environment="HTTP_PROXY={{ docker_engine_http_proxy }}"
+{% if proxy_client_http_proxy | default('') | length > 0 %}
+Environment="HTTP_PROXY={{ proxy_client_http_proxy }}"
 {% endif %}
-{% if docker_engine_https_proxy | default('') | length > 0 %}
-Environment="HTTPS_PROXY={{ docker_engine_https_proxy }}"
+{% if proxy_client_https_proxy | default('') | length > 0 %}
+Environment="HTTPS_PROXY={{ proxy_client_https_proxy }}"
 {% endif %}
-{% if docker_engine_no_proxy | default('') | length > 0 %}
-Environment="NO_PROXY={{ docker_engine_no_proxy }}"
+{% if proxy_client_no_proxy | default('') | length > 0 %}
+Environment="NO_PROXY={{ proxy_client_no_proxy }}"
 {% endif %}

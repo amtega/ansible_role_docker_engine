@@ -2,40 +2,16 @@
 # Role handlers
 
 - name: docker_engine restart service
-  service:
-    name: docker
-    enabled: yes
-    state: restarted
+  include_tasks: tasks/common/docker_service.yml
+  vars:
+    docker_engine_service_state: restarted
   listen: restart docker
   tags:
     - role::docker_engine
     - role::docker_engine::service
 
-- name: docker_engine restart docker storage setup service
-  service:
-    name: docker-storage-setup
-    state: restarted
-    enabled: yes
-  when:
-    - docker_engine_storage_driver | length != 0
-    - >-
-      ansible_facts.distribution | lower in ["centos", "fedora", "rhel"]
-      and ansible_facts.distribution_version is version('7', '>=')
-  listen: restart docker storage
-  tags:
-    - role::docker_engine
-    - role::docker_engine::service
-
-- name: docker_engine stop docker storage setup service
-  service:
-    name: docker-storage-setup
-    state: stopped
-    enabled: no
-  when:
-    - docker_engine_storage_driver | length == 0
-    - >-
-      ansible_facts.distribution | lower in ["centos", "fedora", "rhel"]
-      and ansible_facts.distribution_version is version('7', '>=')
+- name: docker_engine restart docker storage service
+  include_tasks: tasks/common/storage_service.yml
   listen: restart docker storage
   tags:
     - role::docker_engine

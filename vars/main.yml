@@ -1,108 +1,6 @@
 ---
 # Role variables
 
-# Supported distributions
-
-docker_engine_supported_distributions:
-  - centos
-  - debian
-  - fedora
-  - rhel
-
-# Supported distributions versions
-
-docker_engine_supported_versions:
-  centos: 7
-  debian: 9
-  fedora: 27
-  rhel: 7
-
-# Operating system packages to remove before install
-
-docker_engine_obsolete_os_packages:
-  debian_9:
-    - docker
-    - docker-engine
-    - docker.io
-
-  centos_7: []
-
-  fedora_27: []
-
-  fedora_28: []
-
-  rhel_7: []
-
-# Operating system packages to install
-
-docker_engine_os_packages:
-  debian_9:
-    - apt-transport-https
-    - docker-ce
-    - python-pip
-    - python-urllib3
-
-  centos_7:
-    - docker-io
-    - libselinux-python
-    - python-pip
-    - python-urllib3
-
-  fedora_27:
-    - docker-io
-    - libselinux-python
-    - python-pip
-    - python-urllib3
-
-  fedora_28:
-    - docker-io
-    - libselinux-python
-    - python-pip
-    - python-urllib3
-
-  rhel_7:
-    - python-pip
-    - docker-io
-    - libselinux-python
-    - python-pip
-    - python-urllib3
-
-# Python packages to remove before install
-
-docker_engine_obsolete_python_packages:
-  debian_9:
-    - docker-py
-
-  centos_7:
-    - docker-py
-
-  fedora_27:
-    - docker-py
-
-  fedora_28:
-    - docker-py
-
-  rhel_7:
-    - docker-py
-
-# Python  packages to install
-
-docker_engine_python_packages:
-  debian_9:
-    - docker
-
-  centos_7:
-    - docker
-
-  fedora_27:
-    - docker
-
-  fedora_28:
-    - docker
-
-  rhel_7:
-    - docker
-
 # Docker daemon sysconfig file
 
 docker_engine_sysconfig: /etc/sysconfig/docker
@@ -116,7 +14,7 @@ docker_engine_systemd_service:
   fedora_28: /usr/lib/systemd/system/docker.service
   rhel_7: /usr/lib/systemd/system/docker.service
 
-# Docker daemon config file
+# Docker daemon config file (obsolete)
 
 docker_engine_daemon_config: /etc/docker/daemon.json
 
@@ -132,16 +30,3 @@ docker_engine_registry_image: "registry:2"
 # Path to registries config file
 
 docker_engine_registries_conf_path: /etc/containers/registries.conf
-
-# Proxy environment settings
-
-docker_engine_http_proxy_config:
-    http_proxy: "{{ docker_engine_http_proxy | default('') }}"
-    https_proxy: "{{ docker_engine_https_proxy | default('') }}"
-    http_no_proxy: "{{ docker_engine_http_no_proxy | default('') }}"
-
-docker_engine_http_proxy_environment: >-
-  {{ (docker_engine_http_proxy is defined
-      or docker_engine_https_proxy is defined
-      or docker_engine_http_no_proxy is defined)
-     | ternary(docker_engine_http_proxy_config, {}) }}

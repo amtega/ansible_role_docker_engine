@@ -15,7 +15,7 @@ docker_engine_socket: /var/run/docker.sock
 
 docker_engine_listen:
   - "localhost:2375"
-  - "{{ ansible_facts.default_ipv4.address  }}:2375"
+  - "{{ ansible_facts.default_ipv4.address }}:2375"
 
 # List of extra options to pass to the engine daemon during startup
 
@@ -26,14 +26,14 @@ docker_engine_startup_options:
 # Docker storage parameters
 # See /usr/lib/docker-storage-setup/docker-storage-setup for details
 
-docker_engine_storage_driver: ""
+docker_engine_storage_driver: overlay2
 docker_engine_storage_options: ""
 docker_engine_storage_devs: []
 docker_engine_storage_vg: ""
-docker_engine_storage_root_size: "8G"
-docker_engine_storage_data_size: "40%FREE"
-docker_engine_storage_min_data_size: "2G"
-docker_engine_storage_chunk_size: "512K"
+docker_engine_storage_root_size: 8G
+docker_engine_storage_data_size: 40%FREE
+docker_engine_storage_min_data_size: 2G
+docker_engine_storage_chunk_size: 512K
 docker_engine_storage_growpart: false
 docker_engine_storage_auto_exetend_pool: true
 docker_engine_storage_autoextend_threshold: 60
@@ -74,9 +74,3 @@ docker_engine_blocked_registries: []
 #
 
 docker_engine_pip_extra_args: "--upgrade"
-
-# HTTP proxy if docker engine is behind a firewall
-
-docker_engine_http_proxy: "{{ ansible_facts.env.http_proxy | default('') }}"
-docker_engine_https_proxy: "{{ ansible_facts.env.https_proxy | default('') }}"
-docker_engine_no_proxy: "{{ ansible_facts.env.no_proxy | default('') }}"
