@@ -20,7 +20,7 @@
                                                  | lower }}
             {{ ansible_facts.distribution_release }} stable
         state: present
-        filename: "docker"
+        filename: docker
   tags:
     - role::docker_engine
     - role::docker_engine::packages

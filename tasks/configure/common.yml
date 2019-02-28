@@ -13,7 +13,7 @@
         append: yes
         groups: docker
         state: present
-        name: '{{ item }}'
+        name: "{{ item }}"
       loop: "{{ docker_engine_users | default([]) }}"
 
     - name: create http/https proxy config file for systemd service
@@ -30,17 +30,17 @@
       when:
         - ansible_facts.service_mgr == "systemd"
         - >-
-          proxy_client_http_proxy | default('') | length > 0
-          or proxy_client_https_proxy | default('') | length > 0
-          or proxy_client_no_proxy | default('') | length > 0
+          proxy_client_http_proxy | default("") | length > 0
+          or proxy_client_https_proxy | default("") | length > 0
+          or proxy_client_no_proxy | default("") | length > 0
 
     - name: reload systemd to apply new http/https config file
       command: systemctl daemon-reload
+      args:
+        warn: no
       when:
         - ansible_facts.service_mgr == "systemd"
         - create_systemd_proxy_config_result is changed
-
-    - meta: flush_handlers
   tags:
     - role::docker_engine
     - role::docker_engine::configure

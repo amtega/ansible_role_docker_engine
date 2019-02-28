@@ -18,7 +18,7 @@
       {{ docker_engine_listen
          | map("regex_replace", "(.*)", "--host=tcp://\1")
          | list
-         | join(" ")}}
+         | join(" ") }}
     extra_options: >-
       {{ docker_engine_startup_options | join(" ") }}
     all_options: >-
@@ -28,6 +28,8 @@
 
 - name: reload systemd to apply new daemon startup options
   command: systemctl daemon-reload
+  args:
+    warn: no
   when:
     - ansible_facts.service_mgr == "systemd"
     - create_systemd_service_config_result is changed

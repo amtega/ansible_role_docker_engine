@@ -13,7 +13,7 @@
       {{ docker_engine_listen
          | map("regex_replace", "(.*)", "--host=tcp://\1")
          | list
-         | join(" ")}}
+         | join(" ") }}
     extra_options: >-
       {{ docker_engine_startup_options | join(" ") }}
     all_options: >-
