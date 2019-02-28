@@ -26,14 +26,14 @@ docker_engine_startup_options:
 # Docker storage parameters
 # See /usr/lib/docker-storage-setup/docker-storage-setup for details
 
-docker_engine_storage_driver: ""
+docker_engine_storage_driver: overlay2
 docker_engine_storage_options: ""
 docker_engine_storage_devs: []
 docker_engine_storage_vg: ""
-docker_engine_storage_root_size: "8G"
-docker_engine_storage_data_size: "40%FREE"
-docker_engine_storage_min_data_size: "2G"
-docker_engine_storage_chunk_size: "512K"
+docker_engine_storage_root_size: 8G
+docker_engine_storage_data_size: 40%FREE
+docker_engine_storage_min_data_size: 2G
+docker_engine_storage_chunk_size: 512K
 docker_engine_storage_growpart: false
 docker_engine_storage_auto_exetend_pool: true
 docker_engine_storage_autoextend_threshold: 60
