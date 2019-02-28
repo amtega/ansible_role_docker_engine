@@ -48,7 +48,6 @@
 
     - name: check docker registry service
       wait_for:
-        host: "{{ inventory_hostname }}"
         port: "{{ docker_engine_registry_port }}"
         timeout: 60
         connect_timeout: 5
