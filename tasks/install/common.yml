@@ -2,7 +2,7 @@
 # Install tasks common to all distros
 
 - block:
-    - name: create directory for local socket
+    - name: Create directory for local socket
       file:
         path: "{{ docker_engine_socket | dirname }}"
         state: directory
@@ -11,7 +11,7 @@
         mode: 0755
       when: docker_engine_socket | length > 0
 
-    - name: create directory for http/https proxy config file in systemd
+    - name: Create directory for http/https proxy config file in systemd
       file:
         path: "{{ docker_engine_systemd_proxy_config | dirname }}"
         state: directory
@@ -25,7 +25,7 @@
           or proxy_client_https_proxy | default('') | length > 0
           or proxy_client_no_proxy | default('') | length > 0
 
-    - name: remove obsolete daemon config file
+    - name: Remove obsolete daemon config file
       file:
         path: "{{ docker_engine_daemon_config }}"
         state: absent

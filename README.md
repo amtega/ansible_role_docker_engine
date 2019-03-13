@@ -2,20 +2,9 @@
 
 This is an [Ansible](http://www.ansible.com) role to setup docker engine.
 
-## Requirements
-
-[Ansible 2.7+](http://docs.ansible.com/ansible/latest/intro_installation.html)
-
 ## Role Variables
 
 A list of all the default variables for this role is available in `defaults/main.yml`.
-
-## Dependencies
-
-- [amtega.check_platform](https://galaxy.ansible.com/amtega/check_platform)
-- [amtega.proxy_client](https://galaxy.ansible.com/amtega/proxy_client)
-- [amtega.epel](https://galaxy.ansible.com/amtega/epel) amtega.epel in RHEL/CentOS.
-- [amtega.packages](https://galaxy.ansible.com/amtega/packages)
 
 ## Example Playbook
 

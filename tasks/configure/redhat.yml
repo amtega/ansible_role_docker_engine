@@ -1,7 +1,7 @@
 ---
 # Configuration tasks for Red Hat
 
-- name: configure daemon startup options
+- name: Configure daemon startup options
   lineinfile:
     dest: "{{ docker_engine_sysconfig }}"
     regexp: "^OPTIONS="
@@ -24,7 +24,7 @@
     - restart docker
     - restart docker storage
 
-- name: configure docker storage
+- name: Configure docker storage
   template:
     src: docker_storage.j2
     dest: "/etc/sysconfig/docker-storage-setup"

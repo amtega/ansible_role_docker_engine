@@ -8,7 +8,7 @@
 
     - include_tasks: tasks/common/storage_service.yml
 
-    - name: setup docker registry
+    - name: Setup docker registry
       docker_container:
         name: "{{ docker_engine_registry_container_name }}"
         state: "{{ docker_engine_registry_state }}"
@@ -20,7 +20,7 @@
         restart_policy: always
       register: docker_engine_start_registry
 
-    - name: get docker registry ip address
+    - name: Get docker registry ip address
       shell: >-
         docker inspect --format='{''{.NetworkSettings.IPAddress}''}'
         {{ docker_engine_registry_container_name }}
@@ -28,7 +28,7 @@
       when: docker_engine_registry_state in ["present", "started"]
       changed_when: false
 
-    - name: setup registries config directory
+    - name: Setup registries config directory
       file:
         path: "{{ docker_engine_registries_conf_path | dirname }}"
         state: directory
@@ -36,7 +36,7 @@
         group: root
         mode: 0644
 
-    - name: setup docker registries
+    - name: Setup docker registries
       template:
         src: registries.conf.j2
         dest: "{{ docker_engine_registries_conf_path }}"
