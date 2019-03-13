@@ -1,7 +1,7 @@
 ---
 # Configuration tasks for Debian
 
-- name: configure systemd daemon service startup options
+- name: Configure systemd daemon service startup options
   lineinfile:
     dest: "{{ docker_engine_systemd_service[distro_key] }}"
     regexp: "^ExecStart="
@@ -26,7 +26,7 @@
       {{ listen_options }}
       {{ extra_options }}
 
-- name: reload systemd to apply new daemon startup options
+- name: Reload systemd to apply new daemon startup options
   command: systemctl daemon-reload
   args:
     warn: no

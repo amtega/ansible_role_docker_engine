@@ -2,17 +2,17 @@
 # Install tasks for debian
 
 - block:
-    - name: add https support to apt
+    - name: Add https support to apt
       package:
         name: apt-transport-https
         state: present
 
-    - name: add gpg key for docker repository in apt
+    - name: Add gpg key for docker repository in apt
       apt_key:
         url: https://download.docker.com/linux/debian/gpg
         state: present
 
-    - name: add docker repository
+    - name: Add docker repository
       apt_repository:
         repo: >-
             deb
@@ -22,7 +22,7 @@
         state: present
         filename: docker
 
-    - name: install docker-ce package
+    - name: Install docker-ce package
       package:
         name: docker-ce
         state: present

@@ -1,7 +1,7 @@
 ---
 # Docker storage service tasks
 
-- name: setup docker storage service
+- name: Setup docker storage service
   service:
     name: docker-storage-setup
     state: "{{ docker_engine_storage_service_state }}"
