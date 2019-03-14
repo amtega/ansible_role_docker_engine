@@ -5,21 +5,21 @@
 - name: Setup docker engine
   hosts: localhost
   vars_prompt:
-    - name: Ansible_become_user
+    - name: ansible_become_user
       propmpt: User with privileges to install packages
       default: root
       private: no
 
-    - name: Ansible_become_pass
+    - name: ansible_become_pass
       prompt: Password of the user with privileges to install packages
       private: yes
 
-    - name: Ansible_become_method
+    - name: ansible_become_method
       prompt: Method to become the user with privileges to install packages
       default: su
       private: no
 
-    - name: Users
+    - name: users
       prompt: >-
         Comma separated list of usernames that should have permissions to run
         docker
