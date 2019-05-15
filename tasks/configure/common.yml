@@ -16,6 +16,35 @@
         name: "{{ item }}"
       loop: "{{ docker_engine_users | default([]) }}"
 
+    - block:
+        - name: Read docker systemd unit file
+          command: "cat {{ docker_engine_systemd_service[distro_key] }}"
+          register: docker_engine_read_systemd_result
+          changed_when: no
+
+        - name: Fix docker systemd unit file
+          lineinfile:
+            path: "{{ docker_engine_systemd_service[distro_key] }}"
+            regexp: "^Requires=(.*)$"
+            line: "Requires={{ docker_engine_requires }}"
+            backrefs: yes
+            state: present
+          vars:
+            docker_engine_requires: >-
+              {{ ((docker_engine_read_systemd_result.stdout_lines
+                  | select("search", "^Requires=.*")
+                  | list
+                  | first
+                  | regex_replace("^Requires=", "")).split(" ")
+                  + [ "network.service" ])
+                 | unique
+                 | join(" ") }}
+      vars:
+        distro_key: >-
+          {{ ansible_facts.distribution
+             | lower
+             + "_" + ansible_facts.distribution_major_version }}
+
     - name: Create http/https proxy config file for systemd service
       template:
         src: systemd_http_proxy.j2
