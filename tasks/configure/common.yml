@@ -29,6 +29,7 @@
             line: "Requires={{ docker_engine_requires }}"
             backrefs: yes
             state: present
+          register: docker_engine_fix_systemd_result
           vars:
             docker_engine_requires: >-
               {{ ((docker_engine_read_systemd_result.stdout_lines
@@ -39,6 +40,11 @@
                   + [ "network.service" ])
                  | unique
                  | join(" ") }}
+
+        - name: Reload systemd
+          systemd:
+            daemon_reload: yes
+          when: docker_engine_fix_systemd_result is changed
       vars:
         distro_key: >-
           {{ ansible_facts.distribution
