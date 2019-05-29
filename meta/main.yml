@@ -51,24 +51,28 @@ dependencies:
           all:
             docker-io: present
             libselinux-python: present
-            python-docker-py: present
+            python-docker-py: absent
             python-requests: present
             python-urllib3: present
         fedora:
           all:
             docker-io: present
             libselinux-python: present
-            python2-docker-py: present
-            python3-docker-py: present
+            python2-docker-py: absent
+            python3-docker-py: absent
             python3-requests: present
             python3-urllib3: present
         rhel:
           all:
             python-requests: present
             python-urllib3: present
-            python-docker-py: present
+            python-docker-py: absent
             docker-io: present
             libselinux-python: present
+      packages_python:
+        all:
+          all:
+            docker: present
     tags:
       - role::docker_engine
       - role::docker_engine::install
