@@ -59,6 +59,9 @@ dependencies:
 
             - name: docker
               state: present
+
+            - name: requests
+              state: present
     tags:
       - role::docker_engine
       - role::docker_engine::install
