@@ -11,7 +11,7 @@
       --host=unix://{{ docker_engine_socket }}
     listen_options: >-
       {{ docker_engine_listen
-         | map("regex_replace", "(.*)", "--host=tcp://\1")
+         | map("regex_replace", "^(.*)$", "--host=tcp://\1")
          | list
          | join(" ") }}
     extra_options: >-
