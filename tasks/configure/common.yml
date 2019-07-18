@@ -45,6 +45,7 @@
           systemd:
             daemon_reload: yes
           when: docker_engine_fix_systemd_result is changed
+      when: ansible_facts.distribution_major_version is version("29", "<")
       vars:
         distro_key: >-
           {{ ansible_facts.distribution
