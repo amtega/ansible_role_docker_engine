@@ -14,8 +14,8 @@ galaxy_info:
         - 7
     - name: Fedora
       versions:
-        - 28
         - 29
+        - 30
   galaxy_tags:
     - docker
     - system
