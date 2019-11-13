@@ -1,6 +1,14 @@
 ---
 # Role tasks
 
+- name: Run role dependencies
+  include_tasks: common/dependencies.yml
+  tags:
+    - role::docker_engine
+    - role::docker_engine::install
+    - role::docker_engine::configure
+    - role::docker_engine::service
+
 - name: Install docker engine
   include_tasks: install/main.yml
   tags:

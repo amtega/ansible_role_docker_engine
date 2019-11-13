@@ -1,0 +1,54 @@
+---
+# Role dependencies
+
+- include_role:
+    name: amtega.check_platform
+  vars:
+    check_platform_distributions:
+      centos: 7
+      fedora: 29
+      redhat: 7
+
+- include_role:
+    name: amtega.proxy_client
+  vars:
+    proxy_client_permanent: no
+
+- include_role: amtega.epel
+  when: ansible_facts.distribution_version is version("6", ">=")
+
+- include_role:
+    name:  amtega.packages
+  vars:
+    packages_os:
+      all:
+        all:
+          docker-io: present
+          libselinux-python: present
+    packages_python:
+      all:
+        all:
+          - name: dockerpy
+            state: absent
+
+          - name: docker
+            state: present
+
+          - name: requests
+            state: present
+
+- include_role:
+    name: amtega.sysctl
+  vars:
+    sysctl:
+      - name: forwarding ipv4
+        path: /etc/sysctl.d/50-forwarding.conf
+        options:
+          - name: net.ipv4.conf.all.forwarding
+            value: 1
+
+      - name: forwarding ipv6
+        path: /etc/sysctl.d/50-forwarding.conf
+        options:
+          - name: net.ipv6.conf.all.forwarding
+            value: 1

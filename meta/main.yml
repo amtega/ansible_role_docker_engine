@@ -7,7 +7,7 @@ galaxy_info:
   description: Setup docker engine
   company: AMTEGA - Xunta de Galicia
   license: GPLv3 or EUPL
-  min_ansible_version: 2.7
+  min_ansible_version: 2.8
   platforms:
     - name: EL
       versions:
@@ -23,63 +23,17 @@ galaxy_info:
 
 dependencies:
   - role: amtega.check_platform
-    vars:
-      check_platform_distributions:
-        centos: 7
-        fedora: 29
-        rhel: 7
     tags:
-      - role::docker_engine
+      - never
 
   - role: amtega.proxy_client
-    vars:
-      proxy_client_permanent: no
     tags:
-      - role::docker_engine
-
-  - role: amtega.epel
-    when:
-      - ansible_facts.distribution | lower in ['centos', 'rhel']
-      - ansible_facts.distribution_version is version("6", ">=")
-    tags:
-      - role::docker_engine
+      - never
 
   - role: amtega.packages
-    vars:
-      packages_os:
-        all:
-          all:
-            docker-io: present
-            libselinux-python: present
-      packages_python:
-        all:
-          all:
-            - name: dockerpy
-              state: absent
-
-            - name: docker
-              state: present
-
-            - name: requests
-              state: present
     tags:
-      - role::docker_engine
-      - role::docker_engine::install
+      - never
 
   - role: amtega.sysctl
-    vars:
-      sysctl:
-        - name: forwarding ipv4
-          path: /etc/sysctl.d/50-forwarding.conf
-          options:
-            - name: net.ipv4.conf.all.forwarding
-              value: 1
-
-        - name: forwarding ipv6
-          path: /etc/sysctl.d/50-forwarding.conf
-          options:
-            - name: net.ipv6.conf.all.forwarding
-              value: 1
     tags:
-      - role::docker_engine::configure
-      - role::docker_engine
+      - never
