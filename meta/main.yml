@@ -23,17 +23,49 @@ galaxy_info:
 
 dependencies:
   - role: amtega.check_platform
-    tags:
-      - never
+    vars:
+      check_platform_distributions:
+        centos: 7
+        fedora: 29
+        redhat: 7
 
   - role: amtega.proxy_client
-    tags:
-      - never
+    vars:
+      proxy_client_permanent: no
+
+  - include_role: amtega.epel
+    when: ansible_facts.distribution_version is version("6", ">=")
 
   - role: amtega.packages
-    tags:
-      - never
+    vars:
+      packages_os:
+        all:
+          all:
+            docker-io: present
+            libselinux-python: present
+      packages_python:
+        all:
+          all:
+            - name: dockerpy
+              state: absent
+
+            - name: docker
+              state: present
+
+            - name: requests
+              state: present
 
   - role: amtega.sysctl
-    tags:
-      - never
+    vars:
+      sysctl:
+        - name: forwarding ipv4
+          path: /etc/sysctl.d/50-forwarding.conf
+          options:
+            - name: net.ipv4.conf.all.forwarding
+              value: 1
+
+        - name: forwarding ipv6
+          path: /etc/sysctl.d/50-forwarding.conf
+          options:
+            - name: net.ipv6.conf.all.forwarding
+              value: 1
