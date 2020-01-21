@@ -33,7 +33,7 @@ dependencies:
     vars:
       proxy_client_permanent: no
 
-  - include_role: amtega.epel
+  - role: amtega.epel
     when: ansible_facts.distribution_version is version("6", ">=")
 
   - role: amtega.packages
