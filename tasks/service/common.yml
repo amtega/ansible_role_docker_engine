@@ -2,11 +2,11 @@
 # Service tasks common to all distros
 
 - block:
-    - include_tasks: tasks/common/docker_service.yml
+    - include_tasks: ../common/docker_service.yml
       vars:
         docker_engine_service_state: started
 
-    - include_tasks: tasks/common/storage_service.yml
+    - include_tasks: ../common/storage_service.yml
 
     - name: Setup docker registry
       docker_container:

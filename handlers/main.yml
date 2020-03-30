@@ -2,7 +2,7 @@
 # Role handlers
 
 - name: Docker_engine restart service
-  include_tasks: tasks/common/docker_service.yml
+  include_tasks: common/docker_service.yml
   vars:
     docker_engine_service_state: restarted
   listen: restart docker
@@ -11,7 +11,7 @@
     - role::docker_engine::service
 
 - name: Docker_engine restart docker storage service
-  include_tasks: tasks/common/storage_service.yml
+  include_tasks: common/storage_service.yml
   listen: restart docker storage
   tags:
     - role::docker_engine
