@@ -7,7 +7,7 @@ galaxy_info:
   description: Setup docker engine
   company: AMTEGA - Xunta de Galicia
   license: GPLv3 or EUPL
-  min_ansible_version: 2.8
+  min_ansible_version: 2.9
   platforms:
     - name: EL
       versions:
@@ -34,7 +34,6 @@ dependencies:
       proxy_client_permanent: no
 
   - role: amtega.epel
-    when: ansible_facts.distribution_version is version("6", ">=")
 
   - role: amtega.packages
     vars:
