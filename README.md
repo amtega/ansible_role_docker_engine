@@ -5,6 +5,7 @@ This is an [Ansible](http://www.ansible.com) role to setup docker engine.
 ## Role Variables
 
 A list of all the default variables for this role is available in `defaults/main.yml`.
+Fedora 31-32 not install/config docker-storage-setup or init params to docker engine.
 
 ## Example Playbook
 

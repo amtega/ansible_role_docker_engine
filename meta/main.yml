@@ -16,6 +16,8 @@ galaxy_info:
       versions:
         - 29
         - 30
+        - 31
+        - 32
   galaxy_tags:
     - docker
     - system
@@ -35,24 +37,15 @@ dependencies:
 
   - role: amtega.epel
 
+  - role: amtega.grub_options
+    tags:
+      - never
+
   - role: amtega.packages
-    vars:
-      packages_os:
-        all:
-          all:
-            docker-io: present
-            libselinux-python: present
-      packages_python:
-        all:
-          all:
-            - name: dockerpy
-              state: absent
+    tags:
+      - never
 
-            - name: docker
-              state: present
-
-            - name: requests
-              state: present
+  - role: amtega.reboot
 
   - role: amtega.sysctl
     vars:

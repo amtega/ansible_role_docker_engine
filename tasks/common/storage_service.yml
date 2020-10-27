@@ -10,7 +10,7 @@
          and docker_engine_storage_service_state == "started" }}
   when:
     - ansible_facts.distribution | lower in ["centos", "fedora", "redhat"]
-    - ansible_facts.distribution_version is version('7', '>=')
+    - ansible_facts.distribution_version is version('31', '<')
     - docker_engine_config_storage_result is defined
     - docker_engine_config_storage_result is changed
   vars:
@@ -19,7 +19,7 @@
          | ternary(
              (ansible_facts.distribution | lower
               in ["centos", "fedora", "redhat"]
-              and ansible_facts.distribution_version is version('7', '>='))
+              and ansible_facts.distribution_version is version('31', '<'))
               | ternary("started", "stopped"),
              docker_engine_service_state) }}
   tags:

@@ -1,11 +1,11 @@
 ---
-# Install tasks for Red Hat
+# Install tasks for CentOS
 - name: install required software
   include_role:
     name: amtega.packages
   vars:
     packages_os:
-      redhat:
+      centos:
         all:
           docker-io: present
           libselinux-python: present
@@ -20,5 +20,5 @@
 
           - name: requests
             state: present
-  tags:
-    - skip-lint
+    tags:
+      - skip-lint
