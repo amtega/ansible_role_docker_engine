@@ -1,0 +1,10 @@
+{
+  "storage-driver": "{{ docker_engine_storage_driver }}",
+{% if docker_engine_selinux %}
+  "selinux-enabled": true,
+{% endif %}
+{% if docker_engine_log_driver is defined %}
+  "log-driver": "{{ docker_engine_log_driver }}",
+{% endif %}
+  "hosts": {{ docker_engine_listen | to_json | regex_replace ("'", '"') }}
+}

@@ -6,9 +6,6 @@
       vars:
         docker_engine_service_state: started
 
-    - include_tasks: ../common/storage_service.yml
-      when: ansible_facts.distribution_version is version('31', '<')
-
     - name: Setup docker registry
       docker_container:
         name: "{{ docker_engine_registry_container_name }}"

@@ -15,9 +15,14 @@ docker_engine_systemd_service:
   fedora_32: /usr/lib/systemd/system/docker.service
   redhat_7: /usr/lib/systemd/system/docker.service
 
-# Docker daemon config file (obsolete)
+# Docker daemon config file
 
-docker_engine_daemon_config: /etc/docker/daemon.json
+docker_engine_daemon_config_dir: /etc/docker/
+docker_engine_systemd_service_config_dir: /etc/systemd/system/docker.service.d
+docker_engine_systemd_service_config: "{{ docker_engine_systemd_service_config_dir }}/docker.conf"
+
+docker_engine_systemd_containerd: /run/containerd/containerd.sock
+
 
 # Systemd config file for docker http proxy environment variables
 

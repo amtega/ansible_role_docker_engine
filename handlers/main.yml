@@ -9,11 +9,3 @@
   tags:
     - role::docker_engine
     - role::docker_engine::service
-
-- name: Docker_engine restart docker storage service
-  include_tasks: common/storage_service.yml
-  when: ansible_facts.distribution_version is version('31', '<')
-  listen: restart docker storage
-  tags:
-    - role::docker_engine
-    - role::docker_engine::service

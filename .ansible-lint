@@ -2,5 +2,4 @@
 
 exclude_paths:
   - meta
-skip_list:
-  - skip-lint
+  - tasks/install
