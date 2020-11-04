@@ -1,0 +1,13 @@
+---
+# Setup grub options
+
+- name: Adjust grub options for cgroups v1 compatibility
+  include_role:
+    name: amtega.grub_options
+  vars:
+    grub_options_present:
+      - "systemd.unified_cgroup_hierarchy=0"
+  tags:
+    - role::docker_engine
+    - role::docker_engine::install
+    - role::docker_engine::install::grub

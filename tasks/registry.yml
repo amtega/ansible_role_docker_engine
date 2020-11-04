@@ -1,11 +1,7 @@
 ---
-# Service tasks common to all distros
+# Setup docker registry
 
 - block:
-    - include_tasks: ../common/docker_service.yml
-      vars:
-        docker_engine_service_state: started
-
     - name: Setup docker registry
       docker_container:
         name: "{{ docker_engine_registry_container_name }}"
@@ -55,4 +51,4 @@
         - restart docker
   tags:
     - role::docker_engine
-    - role::docker_engine::service
+    - role::docker_engine::registry

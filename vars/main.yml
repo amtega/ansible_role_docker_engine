@@ -1,38 +1,54 @@
 ---
 # Role variables
 
-# Docker daemon sysconfig file
+# Docker repository
 
-docker_engine_sysconfig: /etc/sysconfig/docker
+docker_engine_repo_url: https://download.docker.com/linux
 
-# Docker daemon systemd service file
+docker_engine_repo_release: >-
+  {{ (ansible_facts.distribution | lower == "redhat")
+     | ternary(ansible_facts.distribution_major_version, "$releasever") }}
 
-docker_engine_systemd_service:
-  centos_7: /usr/lib/systemd/system/docker.service
-  fedora_29: /usr/lib/systemd/system/docker.service
-  fedora_30: /usr/lib/systemd/system/docker.service
-  fedora_31: /usr/lib/systemd/system/docker.service
-  fedora_32: /usr/lib/systemd/system/docker.service
-  redhat_7: /usr/lib/systemd/system/docker.service
+docker_engine_repo_distribution: >-
+  {{ (ansible_facts.distribution | lower == "redhat")
+     | ternary("rhel", ansible_facts.distribution | lower) }}
 
-# Docker daemon config file
+# Docker packages
 
-docker_engine_daemon_config_dir: /etc/docker/
+docker_engine_packages_os:
+  centos:
+    all:
+      docker-io: absent
+      docker-ce: present
+      libselinux-python: present
+  redhat:
+    all:
+      docker-io: absent
+      docker-ce: present
+      libselinux-python: present
+  fedora:
+    all:
+      docker-io: absent
+      docker-ce: present
+
+docker_engine_packages_python:
+  all:
+    all:
+      dockerpy: absent
+      docker: present
+
+# Docker daemon paths
+
+docker_engine_daemon_config_dir: /etc/docker
+
 docker_engine_systemd_service_config_dir: /etc/systemd/system/docker.service.d
-docker_engine_systemd_service_config: "{{ docker_engine_systemd_service_config_dir }}/docker.conf"
-
-docker_engine_systemd_containerd: /run/containerd/containerd.sock
-
-
-# Systemd config file for docker http proxy environment variables
-
-docker_engine_systemd_proxy_config: >-
+docker_engine_systemd_service_config_path: >-
+  {{ docker_engine_systemd_service_config_dir }}/docker.conf
+docker_engine_systemd_proxy_config_path: >-
   /etc/systemd/system/docker.service.d/http-proxy.conf
+
+docker_engine_registries_conf_path: /etc/containers/registries.conf
 
 # Registry image to use
 
 docker_engine_registry_image: "registry:2"
-
-# Path to registries config file
-
-docker_engine_registries_conf_path: /etc/containers/registries.conf

@@ -3,7 +3,7 @@
 
 galaxy_info:
   role_name: docker_engine
-  author: Juan Antonio Valiño García
+  author: Juan Antonio Valiño García / José Enrique Mourón Regueira
   description: Setup docker engine
   company: AMTEGA - Xunta de Galicia
   license: GPLv3 or EUPL

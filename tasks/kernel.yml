@@ -1,0 +1,21 @@
+---
+# Setup kernel
+
+- block:
+    - block:
+        - include_tasks: grub.yml
+
+        - name: Trigger reboot to apply kernel options changes
+          command: /bin/true
+          notify:
+            - reboot host
+            - wait host
+      when:
+        - ansible_facts.distribution_version is version('31', '>=')
+        - docker_engine_repository_check.changed
+
+    - meta: flush_handlers
+  tags:
+    - role::docker_engine
+    - role::docker_engine::install
+    - role::docker_engine::install::kernel

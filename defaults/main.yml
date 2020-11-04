@@ -20,14 +20,13 @@ docker_engine_listen:
 
 # List of extra options to pass to the engine daemon during startup
 
-docker_engine_selinux: true
+docker_engine_selinux: yes
 docker_engine_log_driver: journald
 
 # Docker storage parameters
 # See https://docs.docker.com/storage/storagedriver/overlayfs-driver/ for details
 
 docker_engine_storage_driver: overlay2
-
 
 # Status of the docker registry container. Can be present, started, absent or
 # stopped.

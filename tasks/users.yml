@@ -1,0 +1,21 @@
+---
+# Setup docker users tasks
+
+- block:
+    - name: Ensure docker group is present
+      group:
+        name: docker
+        state: present
+        system: yes
+
+    - name: Add users into docker group
+      user:
+        append: yes
+        groups: docker
+        state: present
+        name: "{{ item }}"
+      loop: "{{ docker_engine_users | default([]) }}"
+  tags:
+    - role::docker_engine
+    - role::docker_engine::configure
+    - role::docker_engine::configure::users
