@@ -14,32 +14,20 @@ docker_engine_socket: /var/run/docker.sock
 # If empty will not be used
 
 docker_engine_listen:
-  - "localhost:2375"
-  - "{{ ansible_facts.default_ipv4.address }}:2375"
+  - "unix://{{ docker_engine_socket }}"
+  - "tcp://localhost:2375"
+  - "tcp://{{ ansible_facts.default_ipv4.address }}:2375"
 
 # List of extra options to pass to the engine daemon during startup
 
-docker_engine_startup_options:
-  - "--selinux-enabled"
-  - "--log-driver=journald"
+docker_engine_selinux: true
+docker_engine_log_driver: journald
 
 # Docker storage parameters
-# See /usr/lib/docker-storage-setup/docker-storage-setup for details
+# See https://docs.docker.com/storage/storagedriver/overlayfs-driver/ for details
 
 docker_engine_storage_driver: overlay2
-docker_engine_storage_options: ""
-docker_engine_storage_devs: []
-docker_engine_storage_vg: ""
-docker_engine_storage_root_size: 8G
-docker_engine_storage_data_size: 40%FREE
-docker_engine_storage_min_data_size: 2G
-docker_engine_storage_chunk_size: 512K
-docker_engine_storage_growpart: false
-docker_engine_storage_auto_exetend_pool: true
-docker_engine_storage_autoextend_threshold: 60
-docker_engine_storage_autoextend_percent: 20
-docker_engine_storage_device_wait_timeout: 60
-docker_engine_storage_wipe_signatures: false
+
 
 # Status of the docker registry container. Can be present, started, absent or
 # stopped.

@@ -1,41 +1,18 @@
 ---
 # Configuration tasks for Red Hat
+- block:
 
-- name: Configure daemon startup options
-  lineinfile:
-    dest: "{{ docker_engine_sysconfig }}"
-    regexp: "^OPTIONS="
-    line: 'OPTIONS="{{ all_options }}"'
-  vars:
-    socket_options: >-
-      --host=unix://{{ docker_engine_socket }}
-    listen_options: >-
-      {{ docker_engine_listen
-         | map("regex_replace", "^(.*)$", "--host=tcp://\1")
-         | list
-         | join(" ") }}
-    extra_options: >-
-      {{ docker_engine_startup_options | join(" ") }}
-    all_options: >-
-      {{ socket_options }}
-      {{ listen_options }}
-      {{ extra_options }}
-  notify:
-    - restart docker
-    - restart docker storage
+    - name: Configure docker daemon
+      template:
+        src: docker_daemon.j2
+        dest: "{{ docker_engine_daemon_config_dir }}/daemon.json"
+        owner: root
+        group: root
+        mode: 0644
+        backup: no
+      notify:
+        - restart docker
 
-- name: Configure docker storage
-  template:
-    src: docker_storage.j2
-    dest: "/etc/sysconfig/docker-storage-setup"
-    owner: root
-    group: root
-    mode: 0644
-    backup: no
-  when: ansible_facts.distribution_version is version('7', '>=')
-  register: docker_engine_config_storage_result
-  notify:
-    - restart docker storage
   tags:
     - role::docker_engine
     - role::docker_engine::configure

@@ -9,10 +9,3 @@
   tags:
     - role::docker_engine
     - role::docker_engine::service
-
-- name: Docker_engine restart docker storage service
-  include_tasks: common/storage_service.yml
-  listen: restart docker storage
-  tags:
-    - role::docker_engine
-    - role::docker_engine::service

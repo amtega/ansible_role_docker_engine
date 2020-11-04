@@ -6,8 +6,6 @@
       vars:
         docker_engine_service_state: started
 
-    - include_tasks: ../common/storage_service.yml
-
     - name: Setup docker registry
       docker_container:
         name: "{{ docker_engine_registry_container_name }}"

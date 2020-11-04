@@ -1,6 +1,6 @@
 # Ansible docker_engine role
 
-This is an [Ansible](http://www.ansible.com) role to setup docker engine.
+This is an [Ansible](http://www.ansible.com) role to setup docker engine based on oficial docker-ce repositories.
 
 ## Role Variables
 
@@ -49,3 +49,4 @@ This role is distributed in the hope that it will be useful, but WITHOUT ANY WAR
 ## Author Information
 
 - Juan Antonio Valiño García
+- José Enrique Mourón Regueira

@@ -1,0 +1,79 @@
+---
+
+- block:
+    - name: Set docker-ce repository search values for rhel
+      set_fact:
+        docker_engine_repo_distribution: rhel
+        docker_engine_repo_release: "{{ ansible_facts.distribution_major_version }}"
+      when: ansible_facts.distribution | lower == "redhat"
+
+    - name: Set docker-ce repository search values for CentOS / Fedora
+      set_fact:
+        docker_engine_repo_distribution: "{{ ansible_facts.distribution | lower }}"
+        docker_engine_repo_release: "$releasever"
+      when: ansible_facts.distribution | lower != "redhat"
+
+    - name: set up docker respository
+      yum_repository:
+        name: docker-ce
+        baseurl: "https://download.docker.com/linux/{{ docker_engine_repo_distribution }}/{{ docker_engine_repo_release }}/$basearch/stable"
+        description: Docker repository
+        state: present
+        gpgcheck: no
+        enabled: yes
+      register: docker_engine_repository_check
+
+    - block:
+        - name: Adjust kernel params to cgroups v1 compatibility in Fedora > 31
+          include_role:
+            name: amtega.grub_options
+          vars:
+            grub_options_present:
+              - "systemd.unified_cgroup_hierarchy=0"
+
+        - name: reboot if to apply kernel options changes
+          command: /bin/true
+          notify:
+            - reboot host
+            - wait host
+
+      when:
+        - ansible_facts.distribution_version is version('31', '>=')
+        - docker_engine_repository_check.changed
+
+    - meta: flush_handlers
+
+    - name: Install requires packages
+      include_role:
+        name: amtega.packages
+      vars:
+        packages_os:
+          centos:
+            all:
+              docker-io: absent
+              docker-ce: present
+              libselinux-python: present
+          redhat:
+            all:
+              docker-io: absent
+              docker-ce: present
+              libselinux-python: present
+          fedora:
+            all:
+              docker-io: absent
+              docker-ce: present
+        packages_python:
+          all:
+            all:
+              - name: dockerpy
+                state: absent
+
+              - name: docker
+                state: present
+
+              - name: requests
+                state: present
+
+
+  tags:
+    - skip-lint

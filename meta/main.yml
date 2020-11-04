@@ -14,8 +14,9 @@ galaxy_info:
         - 7
     - name: Fedora
       versions:
-        - 29
         - 30
+        - 31
+        - 32
   galaxy_tags:
     - docker
     - system
@@ -26,7 +27,7 @@ dependencies:
     vars:
       check_platform_distributions:
         centos: 7
-        fedora: 29
+        fedora: 30
         redhat: 7
 
   - role: amtega.proxy_client
@@ -35,24 +36,15 @@ dependencies:
 
   - role: amtega.epel
 
+  - role: amtega.grub_options
+    tags:
+      - never
+
   - role: amtega.packages
-    vars:
-      packages_os:
-        all:
-          all:
-            docker-io: present
-            libselinux-python: present
-      packages_python:
-        all:
-          all:
-            - name: dockerpy
-              state: absent
+    tags:
+      - never
 
-            - name: docker
-              state: present
-
-            - name: requests
-              state: present
+  - role: amtega.reboot
 
   - role: amtega.sysctl
     vars:
