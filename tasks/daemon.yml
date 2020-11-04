@@ -1,6 +1,14 @@
 ---
-# Configuration tasks for Red Hat
+# Docker daemon configuration tasks
+
 - block:
+    - name: Create directory for docker daemon config
+      file:
+        path: "{{ docker_engine_daemon_config_dir }}"
+        state: directory
+        owner: root
+        group: root
+        mode: 0755
 
     - name: Configure docker daemon
       template:
@@ -12,7 +20,7 @@
         backup: no
       notify:
         - restart docker
-
   tags:
     - role::docker_engine
     - role::docker_engine::configure
+    - role::docker_engine::configure::daemon

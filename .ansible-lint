@@ -2,4 +2,5 @@
 
 exclude_paths:
   - meta
-  - tasks/install
+  - tasks/install/kernel.yml
+  - tasks/install/packages.yml

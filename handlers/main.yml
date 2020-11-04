@@ -1,10 +1,11 @@
 ---
 # Role handlers
 
-- name: Docker_engine restart service
-  include_tasks: common/docker_service.yml
-  vars:
-    docker_engine_service_state: restarted
+- name: Setup docker service
+  service:
+    name: docker
+    enabled: yes
+    state: restarted
   listen: restart docker
   tags:
     - role::docker_engine

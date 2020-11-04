@@ -1,0 +1,80 @@
+---
+# Setup docker service
+
+- block:
+    - name: Create directory for local socket
+      file:
+        path: "{{ docker_engine_socket | dirname }}"
+        state: directory
+        owner: root
+        group: root
+        mode: 0755
+      when: docker_engine_socket | length > 0
+
+    - name: Create directory for docker systemd service overrides
+      file:
+        path: "{{ docker_engine_systemd_service_config_dir }}"
+        state: directory
+        owner: root
+        group: root
+        mode: 0755
+
+    - name: Create docker systemd config overrides
+      template:
+        src: docker.conf.j2
+        dest: "{{ docker_engine_systemd_service_config_path }}"
+        owner: root
+        group: root
+        mode: 0644
+        backup: no
+      register: docker_engine_systemd_overrides_result
+
+    - name: Create directory systemd http/https service
+      file:
+        path: "{{ docker_engine_systemd_proxy_config_path | dirname }}"
+        state: directory
+        owner: root
+        group: root
+        mode: 0755
+      when:
+        - ansible_facts.service_mgr == "systemd"
+        - >-
+          proxy_client_http_proxy | default('') | length > 0
+          or proxy_client_https_proxy | default('') | length > 0
+          or proxy_client_no_proxy | default('') | length > 0
+
+    - name: Create systemd http/https proxy service
+      template:
+        src: systemd_http_proxy.j2
+        dest: "{{ docker_engine_systemd_proxy_config_path }}"
+        owner: root
+        group: root
+        mode: 0644
+      register: docker_engine__systemd_proxy__result
+      notify:
+        - restart docker
+      when:
+        - ansible_facts.service_mgr == "systemd"
+        - >-
+          proxy_client_http_proxy | default("") | length > 0
+          or proxy_client_https_proxy | default("") | length > 0
+          or proxy_client_no_proxy | default("") | length > 0
+
+    - name: Reload systemd
+      command: systemctl daemon-reload
+      args:
+        warn: no
+      when:
+        - ansible_facts.service_mgr == "systemd"
+        - >-
+          docker_engine__systemd_proxy__result is changed
+          or docker_engine_systemd_overrides_result is changed
+
+    - name: Setup docker service
+      service:
+        name: docker
+        enabled: yes
+        state: started
+  tags:
+    - role::docker_engine
+    - role::docker_engine::service

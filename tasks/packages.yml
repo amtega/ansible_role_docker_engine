@@ -1,0 +1,13 @@
+---
+# Setup docker packages
+
+- name: Install docker packages
+  include_role:
+    name: amtega.packages
+  vars:
+    packages_os: "{{ docker_engine_packages_os }}"
+    packages_python: "{{ docker_engine_packages_python }}"
+  tags:
+    - role::docker_engine
+    - role::docker_engine::install
+    - role::docker_engine::install::packages

@@ -1,0 +1,22 @@
+---
+# Setup docker repo tasks
+
+- name: Setup docker respository
+  yum_repository:
+    name: docker-ce
+    baseurl: >-
+      {{ docker_engine_repo_url
+         + "/"
+         + docker_engine_repo_distribution
+         + "/"
+         + docker_engine_repo_release
+         + "/$basearch/stable" }}
+    description: Docker repository
+    state: present
+    gpgcheck: no
+    enabled: yes
+  register: docker_engine_repository_check
+  tags:
+    - role::docker_engine
+    - role::docker_engine::install
+    - role::docker_engine::install::repo
