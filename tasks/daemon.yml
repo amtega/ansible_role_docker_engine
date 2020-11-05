@@ -12,7 +12,7 @@
 
     - name: Configure docker daemon
       template:
-        src: docker_daemon.j2
+        src: daemon.json.j2
         dest: "{{ docker_engine_daemon_config_dir }}/daemon.json"
         owner: root
         group: root
