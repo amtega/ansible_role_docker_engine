@@ -22,6 +22,7 @@ docker_engine_listen:
 
 docker_engine_selinux: yes
 docker_engine_log_driver: journald
+docker_engine_iptables: yes
 
 # Docker storage parameters
 # See https://docs.docker.com/storage/storagedriver/overlayfs-driver/ for details

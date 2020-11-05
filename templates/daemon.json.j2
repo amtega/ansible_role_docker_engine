@@ -1,8 +1,9 @@
 {
   "storage-driver": "{{ docker_engine_storage_driver }}",
-{% if docker_engine_selinux %}
+{% if docker_engine_selinux | bool %}
   "selinux-enabled": true,
 {% endif %}
+  "iptables": {{ (docker_engine_iptables | bool) | ternary("true", "false") }},
 {% if docker_engine_log_driver is defined %}
   "log-driver": "{{ docker_engine_log_driver }}",
 {% endif %}
