@@ -8,5 +8,5 @@ Environment="HTTP_PROXY={{ proxy_client_http_proxy }}"
 Environment="HTTPS_PROXY={{ proxy_client_https_proxy }}"
 {% endif %}
 {% if proxy_client_no_proxy | default('') | length > 0 %}
-Environment="NO_PROXY={{ proxy_client_no_proxy }}"
+Environment="NO_PROXY={{ proxy_client_no_proxy | join(',') }}"
 {% endif %}
