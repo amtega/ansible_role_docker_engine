@@ -26,7 +26,14 @@
       default: "root,{{ lookup('env','USER') }}"
       private: no
 
+    - name: reboot
+      prompt: Reboot system if necessary
+      default: true
+      private: no
+
   roles:
     - role: amtega.docker_engine
       docker_engine_users: "{{ users.split(',') | map('trim') | list }}"
       become: true
+  vars:
+    reboot_disable: "{{ not reboot }}"
