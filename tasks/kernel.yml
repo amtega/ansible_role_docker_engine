@@ -3,7 +3,7 @@
 
 - block:
     - include_tasks: grub.yml
-    
+
     - name: Trigger reboot to apply kernel options changes
       command: /bin/true
       notify:
