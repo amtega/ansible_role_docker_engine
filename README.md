@@ -6,6 +6,8 @@ This is an [Ansible](http://www.ansible.com) role to setup docker engine based o
 
 A list of all the default variables for this role is available in `defaults/main.yml`.
 
+Keep in mind that by default the role could reboot de host to activate kernel parameters introduced in GRUB. To avoid the reboot set `reboot_disable` variable (See `amtega.reboot` role for details).
+
 ## Example Playbook
 
 If you want a quick setup on your local machine you can use the `files/setup.yml` playbook:

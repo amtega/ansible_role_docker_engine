@@ -16,20 +16,17 @@ docker_engine_repo_distribution: >-
 # Docker packages
 
 docker_engine_packages_os:
-  centos:
+  all:
     all:
       docker-io: absent
+      moby-engine: absent
       docker-ce: present
+  centos:
+    all:
       libselinux-python: present
   redhat:
     all:
-      docker-io: absent
-      docker-ce: present
       libselinux-python: present
-  fedora:
-    all:
-      docker-io: absent
-      docker-ce: present
 
 docker_engine_packages_python:
   all:
