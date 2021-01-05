@@ -18,9 +18,10 @@ docker_engine_listen:
   - "tcp://localhost:2375"
   - "tcp://{{ ansible_facts.default_ipv4.address }}:2375"
 
-# List of extra options to pass to the engine daemon during startup
+# Extra options
 
 docker_engine_selinux: yes
+docker_engine_selinux_cgroup_policy: yes
 docker_engine_log_driver: journald
 docker_engine_iptables: yes
 

@@ -75,6 +75,13 @@
         name: docker
         enabled: yes
         state: started
+
+    - name: Setup SELinux cgroup policy
+      seboolean:
+        name: container_manage_cgroup
+        state: "{{ docker_engine_selinux_cgroup_policy | bool }}"
+        persistent: yes
+
   tags:
     - role::docker_engine
     - role::docker_engine::service
