@@ -12,11 +12,11 @@ galaxy_info:
     - name: EL
       versions:
         - 7
+        - 8
     - name: Fedora
       versions:
-        - 30
-        - 31
         - 32
+        - 33
   galaxy_tags:
     - docker
     - system
@@ -27,7 +27,7 @@ dependencies:
     vars:
       check_platform_distributions:
         centos: 7
-        fedora: 30
+        fedora: 32
         redhat: 7
 
   - role: amtega.proxy_client
