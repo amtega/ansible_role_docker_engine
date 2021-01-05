@@ -22,10 +22,10 @@ docker_engine_packages_os:
       moby-engine: absent
       docker-ce: present
   centos:
-    all:
+    7:
       libselinux-python: present
   redhat:
-    all:
+    7:
       libselinux-python: present
 
 docker_engine_packages_python:
