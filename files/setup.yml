@@ -27,7 +27,7 @@
       private: no
 
     - name: reboot
-      prompt: Reboot system if necessary
+      prompt: Reboot system if necessary [yes/no]
       default: true
       private: no
 
@@ -36,4 +36,4 @@
       docker_engine_users: "{{ users.split(',') | map('trim') | list }}"
       become: true
   vars:
-    reboot_disable: "{{ not reboot }}"
+    reboot_disable: "{{ not reboot | bool }}"
