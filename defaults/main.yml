@@ -10,25 +10,23 @@ docker_engine_users: []
 
 docker_engine_socket: /var/run/docker.sock
 
-# List of ip strings with the format address:port where the engine will listen.
-# If empty will not be used
+# Dict with dockerd daemon options. See dockerd documentation at
+# https://docs.docker.com/engine/reference/commandline/dockerd/
+# for details
 
-docker_engine_listen:
-  - "unix://{{ docker_engine_socket }}"
-  - "tcp://localhost:2375"
-  - "tcp://{{ ansible_facts.default_ipv4.address }}:2375"
+docker_engine_options:
+  storage-driver: overlay2
+  selinux-enabled: yes
+  iptables: yes
+  log-driver: journald
+  hosts:
+    - "unix://{{ docker_engine_socket }}"
+    - "tcp://localhost:2375"
+    - "tcp://{{ ansible_facts.default_ipv4.address }}:2375"
 
-# Extra options
+# Setup docker engine SELinux policy
 
-docker_engine_selinux: yes
 docker_engine_selinux_cgroup_policy: yes
-docker_engine_log_driver: journald
-docker_engine_iptables: yes
-
-# Docker storage parameters
-# See https://docs.docker.com/storage/storagedriver/overlayfs-driver/ for details
-
-docker_engine_storage_driver: overlay2
 
 # Status of the docker registry container. Can be present, started, absent or
 # stopped.
