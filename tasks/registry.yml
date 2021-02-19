@@ -12,6 +12,7 @@
         ports:
           - "{{ docker_engine_registry_port }}:5000"
         restart_policy: always
+        container_default_behavior: no_defaults
       register: docker_engine_start_registry
 
     - name: Get docker registry ip address
