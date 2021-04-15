@@ -6,7 +6,7 @@
   hosts: localhost
   vars_prompt:
     - name: ansible_become_user
-      propmpt: User with privileges to install packages
+      prompt: User with privileges to install packages
       default: root
       private: no
 
