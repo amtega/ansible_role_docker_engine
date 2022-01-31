@@ -28,12 +28,12 @@
 
     - name: reboot
       prompt: Reboot system if necessary [yes/no]
-      default: true
+      default: "true"
       private: no
 
   roles:
     - role: amtega.docker_engine
       docker_engine_users: "{{ users.split(',') | map('trim') | list }}"
-      become: true
+      become: yes
   vars:
     reboot_disable: "{{ not reboot | bool }}"
