@@ -21,7 +21,7 @@
         {{ docker_engine_registry_container_name }}
       register: docker_engine_search_registry_ip_result
       when: docker_engine_registry_state in ["present", "started"]
-      changed_when: false
+      changed_when: no
 
     - name: Setup registries config directory
       file:

@@ -13,7 +13,8 @@
         - ansible_facts.distribution_version is version('31', '>=')
         - grub_options_add_result is changed
 
-    - meta: flush_handlers
+    - name: Flush handlers
+      meta: flush_handlers
   tags:
     - role::docker_engine
     - role::docker_engine::install
