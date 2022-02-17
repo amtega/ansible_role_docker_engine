@@ -6,12 +6,12 @@
 docker_engine_repo_url: https://download.docker.com/linux
 
 docker_engine_repo_release: >-
-  {{ (ansible_facts.distribution | lower == "redhat")
+  {{ (ansible_facts.distribution | lower != "fedora")
      | ternary(ansible_facts.distribution_major_version, "$releasever") }}
 
 docker_engine_repo_distribution: >-
-  {{ (ansible_facts.distribution | lower == "redhat")
-     | ternary("rhel", ansible_facts.distribution | lower) }}
+  {{ (ansible_facts.distribution | lower != "fedora")
+     | ternary("centos", ansible_facts.distribution | lower) }}
 
 # Docker packages
 
