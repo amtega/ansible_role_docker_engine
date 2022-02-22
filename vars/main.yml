@@ -21,10 +21,6 @@ docker_engine_packages_os:
       docker-io: absent
       moby-engine: absent
       docker-ce: present
-  centos:
-    7:
-      libselinux-python: present
-  redhat:
     7:
       libselinux-python: present
 
