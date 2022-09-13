@@ -4,25 +4,25 @@
   hosts: molecule_hosts
   gather_facts: no
   become: yes
-  tasks:    
+  tasks:
     - name: Get docker info
-      command: docker info
+      ansible.builtin.command: docker info
       register: docker_info_result
       changed_when: no
 
     - name: Verify docker info
-      assert:
+      ansible.builtin.assert:
         that: >-
           {{ docker_info_result.stdout is search("Server Version")
              or docker_info_result.stdout is search("Storage Driver") }}
 
     - name: Check docker listen options
-      wait_for:
+      ansible.builtin.wait_for:
         port: 2375
         timeout: 15
 
     - name: Check docker registry service
-      wait_for:
+      ansible.builtin.wait_for:
         port: 5000
         timeout: 60
         connect_timeout: 5

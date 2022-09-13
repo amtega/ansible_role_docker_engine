@@ -1,9 +1,9 @@
 ---
-# Setup docker service
 
-- block:
+- name: Setup docker service
+  block:
     - name: Create directory for local socket
-      file:
+      ansible.builtin.file:
         path: "{{ docker_engine_socket | dirname }}"
         state: directory
         owner: root
@@ -12,7 +12,7 @@
       when: docker_engine_socket | length > 0
 
     - name: Create directory for docker systemd service overrides
-      file:
+      ansible.builtin.file:
         path: "{{ docker_engine_systemd_service_config_dir }}"
         state: directory
         owner: root
@@ -20,7 +20,7 @@
         mode: 0755
 
     - name: Create docker systemd config overrides
-      template:
+      ansible.builtin.template:
         src: docker.conf.j2
         dest: "{{ docker_engine_systemd_service_config_path }}"
         owner: root
@@ -30,7 +30,7 @@
       register: docker_engine_systemd_overrides_result
 
     - name: Create directory systemd http/https service
-      file:
+      ansible.builtin.file:
         path: "{{ docker_engine_systemd_proxy_config_path | dirname }}"
         state: directory
         owner: root
@@ -44,7 +44,7 @@
           or proxy_client_no_proxy | default('') | length > 0
 
     - name: Create systemd http/https proxy service
-      template:
+      ansible.builtin.template:
         src: systemd_http_proxy.j2
         dest: "{{ docker_engine_systemd_proxy_config_path }}"
         owner: root
@@ -61,7 +61,7 @@
           or proxy_client_no_proxy | default("") | length > 0
 
     - name: Reload systemd
-      command: systemctl daemon-reload
+      ansible.builtin.command: systemctl daemon-reload
       args:
         warn: no
       when:
@@ -71,7 +71,7 @@
           or docker_engine_systemd_overrides_result is changed
 
     - name: Setup docker service
-      service:
+      ansible.builtin.service:
         name: docker
         enabled: yes
         state: started

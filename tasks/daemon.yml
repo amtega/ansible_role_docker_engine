@@ -1,9 +1,9 @@
 ---
-# Docker daemon configuration tasks
 
-- block:
+- name: Setup docker daemon
+  block:
     - name: Create directory for docker daemon config
-      file:
+      ansible.builtin.file:
         path: "{{ docker_engine_daemon_config_dir }}"
         state: directory
         owner: root
@@ -11,7 +11,7 @@
         mode: 0755
 
     - name: Configure docker daemon
-      template:
+      ansible.builtin.template:
         src: daemon.json.j2
         dest: "{{ docker_engine_daemon_config_dir }}/daemon.json"
         owner: root

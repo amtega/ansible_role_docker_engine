@@ -1,15 +1,15 @@
 ---
-# Setup docker users tasks
 
-- block:
+- name: Setup docker users
+  block:
     - name: Ensure docker group is present
-      group:
+      ansible.builtin.group:
         name: docker
         state: present
         system: yes
 
     - name: Add users into docker group
-      user:
+      ansible.builtin.user:
         append: yes
         groups: docker
         state: present

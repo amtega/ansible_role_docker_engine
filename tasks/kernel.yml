@@ -1,11 +1,11 @@
 ---
-# Setup kernel
 
-- block:
-    - include_tasks: grub.yml
+- name: Setup kernel for docker
+  block:
+    - ansible.builtin.include_tasks: grub.yml
 
     - name: Trigger reboot to apply kernel options changes
-      command: /bin/true
+      ansible.builtin.command: /bin/true
       notify:
         - reboot host
         - wait host
@@ -14,7 +14,7 @@
         - grub_options_add_result is changed
 
     - name: Flush handlers
-      meta: flush_handlers
+      ansible.builtin.meta: flush_handlers
   tags:
     - role::docker_engine
     - role::docker_engine::install
