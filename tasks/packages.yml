@@ -1,16 +1,16 @@
 ---
-# Setup docker packages
 
-- block:
+- name: Setup docker packages
+  block:
     - name: Install docker packages
-      include_role:
+      ansible.builtin.include_role:
         name: amtega.packages
       vars:
         packages_os: "{{ docker_engine_packages_os }}"
         packages_python: "{{ docker_engine_packages_python }}"
 
     - name: Setup python semanage
-      include_role:
+      ansible.builtin.include_role:
         name: amtega.python_semanage
   tags:
     - role::docker_engine

@@ -1,42 +1,41 @@
 ---
-# Role tasks
 
-- include_tasks: repo.yml
+- ansible.builtin.include_tasks: repo.yml
   tags:
     - role::docker_engine
     - role::docker_engine::install
     - role::docker_engine::install::repo
 
-- include_tasks: kernel.yml
+- ansible.builtin.include_tasks: kernel.yml
   tags:
     - role::docker_engine
     - role::docker_engine::install
     - role::docker_engine::install::kernel
 
-- include_tasks: packages.yml
+- ansible.builtin.include_tasks: packages.yml
   tags:
     - role::docker_engine
     - role::docker_engine::install
     - role::docker_engine::install::packages
 
-- include_tasks: daemon.yml
+- ansible.builtin.include_tasks: daemon.yml
   tags:
     - role::docker_engine
     - role::docker_engine::configure
     - role::docker_engine::configure::daemon
 
-- include_tasks: users.yml
+- ansible.builtin.include_tasks: users.yml
   tags:
     - role::docker_engine
     - role::docker_engine::configure
     - role::docker_engine::configure::users
 
-- include_tasks: service.yml
+- ansible.builtin.include_tasks: service.yml
   tags:
     - role::docker_engine
     - role::docker_engine::service
 
-- include_tasks: registry.yml
+- ansible.builtin.include_tasks: registry.yml
   tags:
     - role::docker_engine
     - role::docker_engine::registry

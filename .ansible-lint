@@ -1,6 +1,7 @@
 ---
 
 exclude_paths:
-  - meta
-  - tasks/install/kernel.yml
-  - tasks/install/packages.yml
+  - .cz.yaml
+
+kinds:
+  - yaml: "**/molecule/**/requirements.yml"

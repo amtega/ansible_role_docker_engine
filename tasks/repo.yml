@@ -1,8 +1,7 @@
 ---
-# Setup docker repo tasks
 
 - name: Setup docker respository
-  yum_repository:
+  ansible.builtin.yum_repository:
     name: docker-ce
     baseurl: >-
       {{ docker_engine_repo_url
